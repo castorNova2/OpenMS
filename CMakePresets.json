@@ -9,6 +9,7 @@
             "cacheVariables": {
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "CMAKE_COLOR_DIAGNOSTICS": "ON",
+<<<<<<< HEAD
                 "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake",
                 "OPENMS_USE_VCPKG": "ON",
                 "BOOST_USE_STATIC": "OFF"
@@ -19,12 +20,28 @@
             "hidden": true,
             "inherits": "base",
             "condition":{
+=======
+                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+            }
+        },
+        {
+            "name": "linux",
+            "displayName": "Linux x64",
+            "description": "Builds with core dependencies from the pinned vcpkg manifest",
+            "inherits": "base",
+            "cacheVariables": {
+                "OPENMS_USE_VCPKG": "ON",
+                "VCPKG_TARGET_TRIPLET": "x64-linux-dynamic"
+            },
+            "condition": {
+>>>>>>> 7b8839670e (Add arm64 linux preset)
                 "type": "equals",
                 "lhs": "${hostSystemName}",
                 "rhs": "Linux"
             }
         },
         {
+<<<<<<< HEAD
             "name": "linux-x64-base",
             "hidden": true,
             "inherits": "linux-base",
@@ -146,6 +163,21 @@
                 "release-base",
                 "ci-base"
             ]
+=======
+            "name": "linux",
+            "displayName": "Linux arm64",
+            "description": "Builds with core dependencies from the pinned vcpkg manifest",
+            "inherits": "base",
+            "cacheVariables": {
+                "OPENMS_USE_VCPKG": "ON",
+                "VCPKG_TARGET_TRIPLET": "arm64-linux-dynamic"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            }
+>>>>>>> 7b8839670e (Add arm64 linux preset)
         }
     ],
     "buildPresets": [
