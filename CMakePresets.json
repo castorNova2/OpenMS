@@ -25,7 +25,7 @@
             }
         },
         {
-            "name": "linux",
+            "name": "linux-x64",
             "displayName": "Linux x64",
             "description": "Builds with core dependencies from the pinned vcpkg manifest",
             "inherits": "base",
@@ -41,6 +41,7 @@
             }
         },
         {
+<<<<<<< HEAD
 <<<<<<< HEAD
             "name": "linux-x64-base",
             "hidden": true,
@@ -165,6 +166,9 @@
             ]
 =======
             "name": "linux",
+=======
+            "name": "linux-arm64",
+>>>>>>> a9d5aea922 (Add linux clang and arm64 steps in CI)
             "displayName": "Linux arm64",
             "description": "Builds with core dependencies from the pinned vcpkg manifest",
             "inherits": "base",
@@ -231,6 +235,7 @@
             "inherits": "test-base"
         },
         {
+<<<<<<< HEAD
             "name": "linux-x64-release",
             "configurePreset": "linux-x64-release",
             "inherits": "test-base"
@@ -264,6 +269,16 @@
             "name": "linux-arm64-ci",
             "configurePreset": "linux-arm64-ci",
             "inherits": "test-base"
+=======
+            "name": "linux-debug",
+            "displayName": "Debug",
+            "inherits": "debug"
+        },
+        {
+            "name": "linux-release",
+            "displayName": "Release",
+            "inherits": "release"
+>>>>>>> a9d5aea922 (Add linux clang and arm64 steps in CI)
         }
     ]
 }

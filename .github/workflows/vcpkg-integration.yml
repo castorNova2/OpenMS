@@ -1,0 +1,144 @@
+name: "Vcpkg integration"
+
+on:
+  push:
+    branches:
+      - vcpkg_linux_integration
+      - vcpkg-test-branch
+  workflow_dispatch:
+
+jobs:
+  configure-build-test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            compiler: g++
+            compiler_ver: 13
+            configure_preset: x64-linux-dynamic
+            build_preset: linux-releas
+          - os: ubuntu-24.04
+            compiler: clang++
+            compiler_ver: 18
+            configure_preset: x64-linux-dynamic
+            build_preset: linux-releas
+          - os: ubuntu-24.04-arm
+            compiler: g++
+            compiler_ver: 13
+            configure_preset: arm64-linux-dynamic
+            build_preset: linux-release
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - uses: lukka/get-cmake@latest
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            ninja-build \
+            autoconf \
+            autoconf-archive \
+            automake \
+            libtool
+
+          if [[ "${{ matrix.compiler }}" == clang* ]]; then
+          sudo apt-get -qq install -y libomp-${{ matrix.compiler_ver }}-dev
+          fi
+
+      - name: Setup ccache cache
+        uses: actions/cache@v5
+        with:
+          path: .ccache
+          key: ${{ runner.os }}-${{ runner.arch }}-${{ matrix.compiler }}-${{ matrix.compiler_ver }}-ccache-${{ github.run_number }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-${{ matrix.compiler }}-${{ matrix.compiler_ver }}-ccache-
+
+      - name: Configure ccache
+        shell: bash
+        run: |
+          mkdir -p .ccache
+
+          echo "CCACHE_DIR=${{ github.workspace }}/.ccache" >> $GITHUB_ENV
+          echo "CCACHE_BASEDIR=${{ github.workspace }}" >> $GITHUB_ENV
+
+          ccache --set-config=max_size=2G
+
+      - name: Setup vcpkg
+        uses: lukka/run-vcpkg@v11
+        id: runvcpkg
+
+      - name: Override binary cache backend
+        run: |
+          mkdir -p  "$HOME/.cache/vcpkg/archives"
+          echo "VCPKG_BINARY_SOURCES=clear;files,$HOME/.cache/vcpkg/archives,readwrite" >> $GITHUB_ENV
+      - name: Print vcpkg info
+        run: |
+          echo "VCPKG_ROOT=${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}"
+          echo "TRIPLET=${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_DEFAULT_TRIPLET_OUT }}"
+          echo "HOME=$HOME"
+          echo "VCPKG_BINARY_SOURCES=$VCPKG_BINARY_SOURCES"
+
+      - name: Runner info
+        run: |
+          echo "CPU: $(nproc)"
+          free -h
+
+      - name: ccache status before build
+        shell: bash
+        run: |
+          ccache -s || true
+
+      - name: Configure OpenMS
+        run: |
+          cmake --preset ${{ matrix.configure_preset }}  \
+            -DWITH_THERMO_RAW=OFF  \
+            -DWITH_GUI=OFF  \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache  \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+
+      - name: Build OpenMS
+        run: |
+          cmake --build --preset ${{ matrix.build_preset }}
+
+      - name: Inspect vcpkg cache archives
+        if: always()
+        run: |
+          echo "VCPKG_BINARY_SOURCES=$VCPKG_BINARY_SOURCES"
+
+          echo
+          echo "Total files: "
+          find "$HOME/.cache/vcpkg/archives" -name "*.zip" | wc -l || true
+
+          echo
+          echo "Total size: "
+          du -sh "$HOME/.cache/vcpkg/archives" || true
+
+          echo
+          echo "Some files"
+          find "$HOME/.cache/vcpkg/archives" -name "*.zip" | head -20 || true
+
+      # - name: Upload cache artifacts
+      #   if: always()
+      #   uses: actions/upload-artifact@v7
+      #   with:
+      #     name: vcpkg-cache
+      #     path: ~/.cache/vcpkg/archives
+
+      - name: Test
+        shell: bash
+        run: |
+          cd build/${{ matrix.configure_preset }} && ninja test
+
+      - name: ccache status after build
+        shell: bash
+        run: |
+          ccache -s || true
