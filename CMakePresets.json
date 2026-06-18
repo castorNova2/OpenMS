@@ -176,7 +176,7 @@
             "cacheVariables": {
                 "OPENMS_USE_VCPKG": "ON",
                 "VCPKG_TARGET_TRIPLET": "arm64-linux-dynamic",
-                "CMAKE_BUILD_TYPE":"Release"
+                "CMAKE_BUILD_TYPE":"RelWithDebInfo"
             },
             "condition": {
                 "type": "equals",
