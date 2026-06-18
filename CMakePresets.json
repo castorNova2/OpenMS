@@ -31,7 +31,8 @@
             "inherits": "base",
             "cacheVariables": {
                 "OPENMS_USE_VCPKG": "ON",
-                "VCPKG_TARGET_TRIPLET": "x64-linux-dynamic"
+                "VCPKG_TARGET_TRIPLET": "x64-linux-dynamic",
+                "CMAKE_BUILD_TYPE": "Release"
             },
             "condition": {
 >>>>>>> 7b8839670e (Add arm64 linux preset)
@@ -174,7 +175,8 @@
             "inherits": "base",
             "cacheVariables": {
                 "OPENMS_USE_VCPKG": "ON",
-                "VCPKG_TARGET_TRIPLET": "arm64-linux-dynamic"
+                "VCPKG_TARGET_TRIPLET": "arm64-linux-dynamic",
+                "CMAKE_BUILD_TYPE":"Release"
             },
             "condition": {
                 "type": "equals",
@@ -183,6 +185,7 @@
             }
 >>>>>>> 7b8839670e (Add arm64 linux preset)
         }
+<<<<<<< HEAD
     ],
     "buildPresets": [
         {
@@ -280,5 +283,7 @@
             "inherits": "release"
 >>>>>>> a9d5aea922 (Add linux clang and arm64 steps in CI)
         }
+=======
+>>>>>>> 7799eec2ea (Depedencies fixes in vcpkg ci file)
     ]
 }
