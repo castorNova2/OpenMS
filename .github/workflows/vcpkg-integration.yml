@@ -49,7 +49,19 @@ jobs:
             ccache
 
           if [[ "${{ matrix.compiler }}" == clang* ]]; then
-          sudo apt-get -qq install -y libomp-${{ matrix.compiler_ver }}-dev
+          sudo apt-get -qq install -y libomp-${{ matrix.compiler_ver }}-dev  \
+            clang-${{ matrix.compiler_ver }}
+          fi
+
+      - name: Select compiler
+        shell: bash
+        run: |
+          if [[ "${{ matrix.compiler }}" == clang* ]]; then
+            echo "CC=clang-${{ matrix.compiler_ver }}" >> $GITHUB_ENV
+            echo "CXX=clang++-${{ matrix.compiler_ver }}" >> $GITHUB_ENV
+          else
+            echo "CC=gcc-${{ matrix.compiler_ver }}" >> $GITHUB_ENV
+            echo "CXX=g++-${{ matrix.compiler_ver }}" >> $GITHUB_ENV
           fi
 
       - name: Setup ccache cache
@@ -89,6 +101,13 @@ jobs:
         run: |
           echo "CPU: $(nproc)"
           free -h
+
+      - name: Compiler info
+        run: |
+          echo "CC=$CC"
+          echo "CXX=$CXX"
+          $CC --version
+          $CXX --version
 
       - name: ccache status before build
         shell: bash
