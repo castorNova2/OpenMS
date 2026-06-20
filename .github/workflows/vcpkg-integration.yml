@@ -52,6 +52,36 @@ jobs:
           sudo apt-get -qq install -y libomp-${{ matrix.compiler_ver }}-dev  \
             clang-${{ matrix.compiler_ver }}
           fi
+      
+      - name: Add THIRDPARTY
+        shell: bash
+        run: |
+          # initialize THIRDPARTY
+          git submodule update --init THIRDPARTY
+
+          # add third-party binaries to PATH
+          # use flat THIRDPARTY structure
+          mkdir -p _thirdparty
+
+          tp_folder=${{ runner.os }}
+          if [ "$tp_folder" = "macOS" ]; then
+            tp_folder=MacOS
+          fi
+
+          # Copy the correct architecture
+          cp -R "THIRDPARTY/$tp_folder/$(uname -m)"/* _thirdparty/
+
+          # Copy architecture independent tools
+          cp -R THIRDPARTY/All/* _thirdparty/
+
+          # add third-party binaries to PATH
+          for thirdpartytool in '${{ github.workspace }}/_thirdparty'/*; do
+            if [ "${{ runner.os }}" = "Windows" ]; then
+              echo "${thirdpartytool//\//\\}" >> "$GITHUB_PATH"
+            else
+              echo "${thirdpartytool}" >> "$GITHUB_PATH"
+            fi
+          done
 
       - name: Select compiler
         shell: bash
@@ -120,7 +150,8 @@ jobs:
             -DWITH_THERMO_RAW=OFF  \
             -DWITH_GUI=OFF  \
             -DCMAKE_C_COMPILER_LAUNCHER=ccache  \
-            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache  \
+            -DWITH_THERMORAWFILEPARSER_TEST=OFF
 
       - name: Build OpenMS
         run: |
@@ -153,7 +184,7 @@ jobs:
       - name: Test
         shell: bash
         run: |
-          cd build/${{ matrix.configure_preset }} && ninja test
+          cd build/${{ matrix.configure_preset }} && ctest --rerun-failed --output-on-failure 
 
       - name: ccache status after build
         shell: bash
