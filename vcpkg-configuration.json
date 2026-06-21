@@ -6,4 +6,8 @@
   },
   "overlay-ports": ["./vcpkg-overlays/ports"],
   "overlay-triplets": ["./vcpkg-overlays/triplets"]
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 200b44cedc (Overlay triplet for debug symbols)
