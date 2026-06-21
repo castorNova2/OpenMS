@@ -76,6 +76,7 @@ else()
   endif ()
   
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   # extract version
   set (LIBSVM_MAJOR_VERSION 0)
@@ -94,6 +95,8 @@ else()
   set (LIBSVM_VERSION "${LIBSVM_MAJOR_VERSION}.${LIBSVM_MINOR_VERSION}.${LIBSVM_SUBMINOR_VERSION}")
   
 >>>>>>> 67345d2d1f (vcpkg integration into CMakeLists.txt)
+=======
+>>>>>>> bdc33b8705 (Support version detection for vcpkg libsvm discovery)
   # find LIBSVM_LIBRARY
   find_library (LIBSVM_LIBRARY_RELEASE NAMES svm libsvm DOC "LibSVM library location" )
   find_library (LIBSVM_LIBRARY_DEBUG NAMES svmd libsvmd DOC "LibSVM library location" )
