@@ -52,7 +52,7 @@ jobs:
           sudo apt-get -qq install -y libomp-${{ matrix.compiler_ver }}-dev  \
             clang-${{ matrix.compiler_ver }}
           fi
-      
+
       - name: Add THIRDPARTY
         shell: bash
         run: |
@@ -110,7 +110,7 @@ jobs:
           echo "CCACHE_DIR=${{ github.workspace }}/.ccache" >> $GITHUB_ENV
           echo "CCACHE_BASEDIR=${{ github.workspace }}" >> $GITHUB_ENV
 
-          ccache --set-config=max_size=2G
+          CCACHE_DIR="${{ github.workspace }}/.ccache" ccache --set-config=max_size=2G
 
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11
@@ -184,7 +184,7 @@ jobs:
       - name: Test
         shell: bash
         run: |
-          cd build/${{ matrix.configure_preset }} && ctest --rerun-failed --output-on-failure 
+          cd build/${{ matrix.configure_preset }} && ctest --rerun-failed --output-on-failure
 
       - name: ccache status after build
         shell: bash
