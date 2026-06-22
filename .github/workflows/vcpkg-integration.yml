@@ -132,6 +132,14 @@ jobs:
         run: |
           mkdir -p  "$HOME/.cache/vcpkg/archives"
           echo "VCPKG_BINARY_SOURCES=clear;files,$HOME/.cache/vcpkg/archives,readwrite" >> $GITHUB_ENV
+
+      - name: Setup vcpkg cache
+        uses: actions/cache@v5
+        with: 
+          path: ~/.cache/vcpkg/archives
+          key: ${{ runner.os }}-${{ runner.arch }}-${{ matrix.variant_name }}-vcpkg-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-${{ matrix.variant_name }}-vcpkg-
       - name: Print vcpkg info
         run: |
           echo "VCPKG_ROOT=${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}"
@@ -166,6 +174,21 @@ jobs:
             -DWITH_THERMORAWFILEPARSER_TEST=OFF  \
             ${{ matrix.extra_cmake_flags || '' }}
 
+      - name: Verify vcpkg libs contain debug symbols
+        if: ${{ matrix.variant_name == 'linux-x64-gcc-dbg' }}
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          LIB=$(find vcpkg/packages/coinutils_x64-linux-dynamic-dbg/lib -name 'libCoinUtils.so*' | head -n 1)
+
+          echo "Checking $LIB"
+          readelf -S "$LIB" | grep -E '\.debug_info|\.debug_line|\.debug_abbrev|\.debug_str'
+
+          echo
+          grep -R "CMAKE_CXX_FLAGS_RELEASE\|CMAKE_C_FLAGS_RELEASE" vcpkg/buildtrees/coinutils -n || true
+          grep -R -- "-g" vcpkg/buildtrees/coinutils -n || true
+
       - name: Build OpenMS
         run: |
           cmake --build build/${{ matrix.configure_preset }}
@@ -174,10 +197,6 @@ jobs:
         if: always()
         run: |
           echo "VCPKG_BINARY_SOURCES=$VCPKG_BINARY_SOURCES"
-
-          echo
-          echo "Total files: "
-          find "$HOME/.cache/vcpkg/archives" -name "*.zip" | wc -l || true
 
           echo
           echo "Total size: "
