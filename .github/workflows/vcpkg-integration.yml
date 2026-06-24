@@ -173,7 +173,7 @@ jobs:
             -DCMAKE_CXX_COMPILER_LAUNCHER=ccache  \
             -DWITH_THERMORAWFILEPARSER_TEST=OFF  \
             ${{ matrix.extra_cmake_flags || '' }}  \
-            --x-features=hdf5  \
+            -DVCPKG_MANIFEST_FEATURES=hdf5  \
             -DWITH_HDF5=ON
 
       - name: Verify vcpkg libs contain debug symbols
@@ -193,8 +193,7 @@ jobs:
 
       - name: Build OpenMS
         run: |
-          cmake --build build/${{ matrix.configure_preset }}  \
-            -DWITH_HDF5=ON
+          cmake --build build/${{ matrix.configure_preset }}
 
       - name: Inspect vcpkg cache archives
         if: always()
