@@ -51,14 +51,54 @@ jobs:
 
       - name: Install build dependencies
         run: |
+          sudo add-apt-repository universe
           sudo apt-get update
-          sudo apt-get install -y \
-            ninja-build \
+          sudo apt-get -qq install -y \
+            build-essential \
+            cmake \
             autoconf \
             autoconf-archive \
             automake \
-            libtool  \
-            ccache
+            patch \
+            libtool \
+            git \
+            ninja-build \
+            xvfb \
+            ccache \
+            libgl-dev \
+            libeigen3-dev \
+            libboost-random-dev \
+            libboost-regex-dev \
+            libboost-iostreams-dev \
+            libboost-date-time-dev \
+            libboost-math-dev \
+            libxerces-c-dev \
+            zlib1g-dev \
+            libsvm-dev \
+            libbz2-dev \
+            coinor-libcoinmp-dev \
+            libhdf5-dev \
+            libsqlite3-dev \
+            libsqlitecpp-dev \
+            nlohmann-json3-dev \
+            libsimde-dev \
+            libzip-dev \
+            doxygen \
+            ghostscript \
+            graphviz
+      
+          # Install uv
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+      
+          # Arrow / Parquet system packages
+          sudo apt-get install -y -V ca-certificates lsb-release wget
+          wget https://packages.apache.org/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
+          sudo apt-get install -y -V ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libcurl4-openssl-dev \
+            libarrow-dev \
+            libparquet-dev
 
           if [[ "${{ matrix.compiler }}" == clang* ]]; then
           sudo apt-get -qq install -y libomp-${{ matrix.compiler_ver }}-dev  \
@@ -173,9 +213,11 @@ jobs:
             -DCMAKE_CXX_COMPILER_LAUNCHER=ccache  \
             -DWITH_THERMORAWFILEPARSER_TEST=OFF  \
             ${{ matrix.extra_cmake_flags || '' }}  \
-            -DVCPKG_MANIFEST_FEATURES="hdf5;lp-highs"  \
-            -DWITH_HDF5=ON  \
-            -DLP_SOLVER=HIGHS  \
+            -DENABLE_DOCS=OFF  \
+            -DENABLE_TUTORIALS=OFF  \
+#            -DVCPKG_MANIFEST_FEATURES="hdf5;lp-highs"  \
+#            -DWITH_HDF5=ON  \
+#            -DLP_SOLVER=HIGHS  \
 
       - name: Verify vcpkg libs contain debug symbols
         if: ${{ matrix.variant_name == 'linux-x64-gcc-dbg' }}
@@ -196,6 +238,26 @@ jobs:
         run: |
           cmake --build build/${{ matrix.configure_preset }}
 
+      - name: Inspect resolved dependency paths
+        shell: bash
+        run: |
+          echo "Any vcpkg_installed paths in CMakeCache"
+          grep -n "vcpkg_installed" build/${{ matrix.configure_preset }}/CMakeCache.txt || true
+
+          echo
+          echo "Any /usr paths in CMakeCache"
+          grep -n "/usr/" build/${{ matrix.configure_preset }}/CMakeCache.txt || true
+
+      - name: Inspect resolved dependency paths
+        shell: bash
+        run: |
+          echo "Any vcpkg_installed paths in CMakeCache"
+          grep -n "vcpkg_installed" build/${{ matrix.configure_preset }}/CMakeCache.txt || true
+
+          echo
+          echo "Any /usr paths in CMakeCache"
+          grep -n "/usr/" build/${{ matrix.configure_preset }}/CMakeCache.txt || true
+
       - name: Inspect vcpkg cache archives
         if: always()
         run: |
@@ -208,13 +270,6 @@ jobs:
           echo
           echo "Some files"
           find "$HOME/.cache/vcpkg/archives" -name "*.zip" | head -20 || true
-
-      # - name: Upload cache artifacts
-      #   if: always()
-      #   uses: actions/upload-artifact@v7
-      #   with:
-      #     name: vcpkg-cache
-      #     path: ~/.cache/vcpkg/archives
 
       - name: Test
         shell: bash
