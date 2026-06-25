@@ -241,22 +241,16 @@ jobs:
       - name: Inspect resolved dependency paths
         shell: bash
         run: |
-          echo "Any vcpkg_installed paths in CMakeCache"
-          grep -n "vcpkg_installed" build/${{ matrix.configure_preset }}/CMakeCache.txt || true
+          cache_file="build/${{ matrix.configure_preset }}/CMakeCache.txt"
+          echo "Inspecting $cache_file"
+          echo
+
+          echo "Core dependency lines from CMakeCache.txt"
+          grep -Ei 'Boost|BZIP2|Coin|COIN_|EIGEN|HDF5|LIBSVM|LIBZIP|OPENSSL|PARQUET|Qt|SQLITE|XERCES|ZLIB|ARROW' "$cache_file" || true
 
           echo
-          echo "Any /usr paths in CMakeCache"
-          grep -n "/usr/" build/${{ matrix.configure_preset }}/CMakeCache.txt || true
-
-      - name: Inspect resolved dependency paths
-        shell: bash
-        run: |
-          echo "Any vcpkg_installed paths in CMakeCache"
-          grep -n "vcpkg_installed" build/${{ matrix.configure_preset }}/CMakeCache.txt || true
-
-          echo
-          echo "Any /usr paths in CMakeCache"
-          grep -n "/usr/" build/${{ matrix.configure_preset }}/CMakeCache.txt || true
+          echo "Resolved paths under vcpkg_installed"
+          grep 'vcpkg_installed' "$cache_file" || true
 
       - name: Inspect vcpkg cache archives
         if: always()
