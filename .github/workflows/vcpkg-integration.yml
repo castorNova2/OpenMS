@@ -215,9 +215,9 @@ jobs:
             ${{ matrix.extra_cmake_flags || '' }}  \
             -DENABLE_DOCS=OFF  \
             -DENABLE_TUTORIALS=OFF  \
-#            -DVCPKG_MANIFEST_FEATURES="hdf5;lp-highs"  \
-#            -DWITH_HDF5=ON  \
-#            -DLP_SOLVER=HIGHS  \
+           -DVCPKG_MANIFEST_FEATURES="hdf5;lp-highs"  \
+           -DWITH_HDF5=ON  \
+           -DLP_SOLVER=HIGHS  \
 
       - name: Verify vcpkg libs contain debug symbols
         if: ${{ matrix.variant_name == 'linux-x64-gcc-dbg' }}
