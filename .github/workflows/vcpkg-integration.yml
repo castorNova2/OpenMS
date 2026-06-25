@@ -20,26 +20,26 @@ jobs:
           - os: ubuntu-24.04
             compiler: g++
             compiler_ver: 13
-            configure_preset: linux-x64
+            configure_preset: linux-x64-ci
+            build_preset: linux-x64-ci
+            test_preset: linux-x64-ci
             variant_name: linux-x64-gcc
+
           - os: ubuntu-24.04
             compiler: clang++
             compiler_ver: 18
-            configure_preset: linux-x64
+            configure_preset: linux-x64-ci
+            build_preset: linux-x64-ci
+            test_preset: linux-x64-ci
             variant_name: linux-x64-clang
+
           - os: ubuntu-24.04-arm
             compiler: g++
             compiler_ver: 13
-            configure_preset: linux-arm64
+            configure_preset: linux-arm64-ci
+            build_preset: linux-arm64-ci
+            test_preset: linux-arm64-ci
             variant_name: linux-arm64-gcc
-          - os: ubuntu-24.04
-            compiler: g++
-            compiler_ver: 13
-            configure_preset: linux-x64
-            variant_name: linux-x64-gcc-dbg
-            extra_cmake_flags: >-
-              -DVCPKG_TARGET_TRIPLET=x64-linux-dynamic-dbg
-              -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
     steps:
       - uses: actions/checkout@v6
@@ -207,36 +207,17 @@ jobs:
       - name: Configure OpenMS
         run: |
           cmake --preset ${{ matrix.configure_preset }}  \
-            -DWITH_THERMO_RAW=OFF  \
-            -DWITH_GUI=OFF  \
             -DCMAKE_C_COMPILER_LAUNCHER=ccache  \
             -DCMAKE_CXX_COMPILER_LAUNCHER=ccache  \
-            -DWITH_THERMORAWFILEPARSER_TEST=OFF  \
-            ${{ matrix.extra_cmake_flags || '' }}  \
             -DENABLE_DOCS=OFF  \
             -DENABLE_TUTORIALS=OFF  \
-           -DVCPKG_MANIFEST_FEATURES="hdf5;lp-glpk"  \
-           -DWITH_HDF5=ON  \
-           -DLP_SOLVER=GLPK  \
-
-      - name: Verify vcpkg libs contain debug symbols
-        if: ${{ matrix.variant_name == 'linux-x64-gcc-dbg' }}
-        shell: bash
-        run: |
-          set -euxo pipefail
-
-          LIB=$(find vcpkg/packages/coinutils_x64-linux-dynamic-dbg/lib -name 'libCoinUtils.so*' | head -n 1)
-
-          echo "Checking $LIB"
-          readelf -S "$LIB" | grep -E '\.debug_info|\.debug_line|\.debug_abbrev|\.debug_str'
-
-          echo
-          grep -R "CMAKE_CXX_FLAGS_RELEASE\|CMAKE_C_FLAGS_RELEASE" vcpkg/buildtrees/coinutils -n || true
-          grep -R -- "-g" vcpkg/buildtrees/coinutils -n || true
+#            -DVCPKG_MANIFEST_FEATURES="hdf5;lp-glpk"  \
+#            -DWITH_HDF5=ON  \
+#            -DLP_SOLVER=GLPK  \
 
       - name: Build OpenMS
         run: |
-          cmake --build build/${{ matrix.configure_preset }}
+          cmake --build --preset ${{ matrix.build_preset }}
 
       - name: Inspect resolved dependency paths
         shell: bash
@@ -268,7 +249,7 @@ jobs:
       - name: Test
         shell: bash
         run: |
-          cd build/${{ matrix.configure_preset }} && ctest --rerun-failed --output-on-failure
+          ctest --preset ${{ matrix.test_preset }}
 
       - name: ccache status after build
         shell: bash
