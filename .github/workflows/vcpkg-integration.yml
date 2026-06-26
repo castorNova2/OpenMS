@@ -227,7 +227,9 @@ jobs:
           echo
 
           echo "Core dependency lines from CMakeCache.txt"
-          grep -Ei 'Boost|BZIP2|Coin|COIN_|EIGEN|HDF5|LIBSVM|LIBZIP|OPENSSL|PARQUET|Qt|SQLITE|XERCES|ZLIB|ARROW' "$cache_file" || true
+          grep -Ei \
+            'Boost|BZIP2|Coin|COIN_|GLPK|HIGHS|highs|LP_SOLVER|LPTARGET|EIGEN|HDF5|LIBSVM|LIBZIP|OPENSSL|PARQUET|ARROW|CURL|LibXml2|Qt|SQLITE|XERCES|ZLIB' \
+            "$cache_file" || true
 
           echo
           echo "Resolved paths under vcpkg_installed"
