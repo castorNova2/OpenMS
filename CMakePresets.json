@@ -20,6 +20,7 @@
             "name": "linux-base",
             "hidden": true,
             "inherits": "base",
+<<<<<<< HEAD
             "condition":{
 =======
                 "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
@@ -35,9 +36,22 @@
             "hidden": true,
             "inherits": "base",
             "condition":{
+=======
+            "condition": {
+>>>>>>> 41583ac6b2 (Add macos to vcpkg CI)
                 "type": "equals",
                 "lhs": "${hostSystemName}",
                 "rhs": "Linux"
+            }
+        },
+        {
+            "name": "macos-base",
+            "hidden": true,
+            "inherits": "base",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Darwin"
             }
         },
         {
@@ -45,7 +59,7 @@
             "hidden": true,
             "inherits": "linux-base",
             "cacheVariables": {
-                "VCPKG_TARGET_TRIPLET":"x64-linux-dynamic"
+                "VCPKG_TARGET_TRIPLET": "x64-linux-dynamic"
             }
         },
         {
@@ -53,7 +67,15 @@
             "hidden": true,
             "inherits": "linux-base",
             "cacheVariables": {
-                "VCPKG_TARGET_TRIPLET":"arm64-linux-dynamic"
+                "VCPKG_TARGET_TRIPLET": "arm64-linux-dynamic"
+            }
+        },
+        {
+            "name": "macos-arm64-base",
+            "hidden": true,
+            "inherits": "macos-base",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "arm64-osx-dynamic"
             }
         },
         {
@@ -127,7 +149,9 @@
             "cacheVariables": {
                 "WITH_GUI": "OFF",
                 "WITH_THERMO_RAW": "OFF",
-                "WITH_THERMORAWFILEPARSER_TEST": "OFF"
+                "WITH_THERMORAWFILEPARSER_TEST": "OFF",
+                "ENABLE_DOCS": "OFF",
+                "ENABLE_TUTORIALS": "OFF"
             }
         },
         {
@@ -203,6 +227,7 @@
                 "release-base",
                 "ci-base"
             ]
+<<<<<<< HEAD
 =======
             "name": "linux",
 =======
@@ -307,6 +332,21 @@
                 "release-base",
                 "ci-base"
             ]
+=======
+        },
+        {
+            "name": "macos-arm64-ci",
+            "displayName": "macOS arm64 CI",
+            "description": "OpenMS CI preset with vcpkg dependencies on macOS arm64",
+            "inherits": [
+                "macos-arm64-base",
+                "release-base",
+                "ci-base"
+            ],
+            "cacheVariables": {
+                "CMAKE_PREFIX_PATH": "$(brew --prefix);$(brew --prefix libomp)"
+            }
+>>>>>>> 41583ac6b2 (Add macos to vcpkg CI)
         }
     ],
     "buildPresets": [
@@ -341,6 +381,10 @@
         {
             "name": "linux-arm64-ci",
             "configurePreset": "linux-arm64-ci"
+        },
+        {
+            "name": "macos-arm64-ci",
+            "configurePreset": "macos-arm64-ci"
         }
     ],
     "testPresets": [
@@ -393,7 +437,15 @@
             "name": "linux-arm64-ci",
             "configurePreset": "linux-arm64-ci",
             "inherits": "test-base"
+<<<<<<< HEAD
 >>>>>>> fc6227fb60 (Updated preset file)
+=======
+        },
+        {
+            "name": "macos-arm64-ci",
+            "configurePreset": "macos-arm64-ci",
+            "inherits": "test-base"
+>>>>>>> 41583ac6b2 (Add macos to vcpkg CI)
         }
 <<<<<<< HEAD
     ],
