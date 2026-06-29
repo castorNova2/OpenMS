@@ -196,7 +196,21 @@ jobs:
           echo "CCACHE_BASEDIR=${{ github.workspace }}" >> $GITHUB_ENV
 
           CCACHE_DIR="${{ github.workspace }}/.ccache" ccache --set-config=max_size=2G
+      
+      - name: Debug Apple SDK
+        run: |
+          xcode-select -p
+          xcrun --show-sdk-path
+          xcrun --show-sdk-version
 
+          clang --version
+          clang -v
+
+          echo "SDKROOT=$SDKROOT"
+
+          echo '#include <sys/types.h>' > test.c
+          clang -c test.c
+          
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11
         id: runvcpkg
