@@ -302,3 +302,11 @@ jobs:
         shell: bash
         run: |
           ccache -s || true
+
+      - name: Upload vcpkg buildtrees
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vcpkg-buildtrees-${{ matrix.variant_name }}
+          path: ${{ github.workspace }}/vcpkg/buildtrees
+
