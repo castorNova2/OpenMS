@@ -75,7 +75,7 @@
             "hidden": true,
             "inherits": "macos-base",
             "cacheVariables": {
-                "VCPKG_TARGET_TRIPLET": "arm64-osx-dynamic"
+                "VCPKG_TARGET_TRIPLET": "arm64-osx"
             }
         },
         {
