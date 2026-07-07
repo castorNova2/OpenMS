@@ -75,7 +75,7 @@
             "hidden": true,
             "inherits": "macos-base",
             "cacheVariables": {
-                "VCPKG_TARGET_TRIPLET": "arm64-osx"
+                "VCPKG_TARGET_TRIPLET": "arm64-osx-dynamic-sysroot"
             }
         },
         {
@@ -342,11 +342,15 @@
                 "macos-arm64-base",
                 "release-base",
                 "ci-base"
+<<<<<<< HEAD
             ],
             "cacheVariables": {
                 "CMAKE_PREFIX_PATH": "$(brew --prefix);$(brew --prefix libomp)"
             }
 >>>>>>> 41583ac6b2 (Add macos to vcpkg CI)
+=======
+            ]
+>>>>>>> ccbb9f9ade (custom macos triplet)
         }
     ],
     "buildPresets": [
