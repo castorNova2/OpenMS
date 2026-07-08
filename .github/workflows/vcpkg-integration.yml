@@ -129,6 +129,21 @@ jobs:
               libtool \
               pkg-config \
               git \
+              libomp \
+              libsvm \
+              xerces-c \
+              boost \
+              eigen \
+              sqlite \
+              coinutils \
+              cbc \
+              cgl \
+              clp \
+              apache-arrow \
+              libzip \
+              zstd \
+              bash \
+              uv
 
             
             echo "$(brew --prefix bison)/bin" >> "$GITHUB_PATH"
