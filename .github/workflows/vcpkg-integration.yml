@@ -301,7 +301,7 @@ jobs:
 
           echo "Core dependency lines from CMakeCache.txt"
           grep -Ei \
-            'Boost|BZIP2|Coin|COIN_|GLPK|HIGHS|highs|LP_SOLVER|LPTARGET|EIGEN|HDF5|LIBSVM|LIBZIP|OPENSSL|PARQUET|ARROW|CURL|LibXml2|Qt|SQLITE|XERCES|ZLIB' \
+            'Boost|BZIP2|Coin|COIN_|GLPK|HIGHS|highs|LP_SOLVER|LPTARGET|EIGEN|HDF5|LIBSVM|LIBZIP|OPENSSL|PARQUET|ARROW|CURL|LibXml2|Qt|SQLITE|XERCES|ZLIB|OPENTIMS|OPENSSL' \
             "$cache_file" || true
 
           echo
