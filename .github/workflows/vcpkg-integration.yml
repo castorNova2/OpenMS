@@ -172,6 +172,7 @@ jobs:
       
       - name: Debug ccache
         if: runner.os == 'macOS'
+        shell: bash
         run: |
           brew list ccache || true
           which ccache || true
@@ -252,6 +253,7 @@ jobs:
       
       - name: Debug Apple SDK
         if: runner.os == 'macOS'
+        shell: bash
         run: |
           xcode-select -p
           xcrun --show-sdk-path
@@ -291,6 +293,8 @@ jobs:
       #     free -h
 
       - name: Compiler info
+        shell: bash
+        if: runner.os != 'Windows'
         run: |
           echo "CC=$CC"
           echo "CXX=$CXX"
@@ -303,6 +307,7 @@ jobs:
           ccache -s || true
 
       - name: Configure OpenMS
+        shell: bash
         run: |
           cmake --preset ${{ matrix.configure_preset }} \
             -DCMAKE_C_COMPILER_LAUNCHER=ccache \
@@ -312,6 +317,7 @@ jobs:
       #            -DLP_SOLVER=GLPK \
 
       - name: Build OpenMS
+        shell: bash
         run: |
           cmake --build --preset ${{ matrix.build_preset }}
 
@@ -333,6 +339,7 @@ jobs:
 
       - name: Inspect vcpkg cache archives
         if: always()
+        shell: bash
         run: |
           echo "VCPKG_BINARY_SOURCES=$VCPKG_BINARY_SOURCES"
 

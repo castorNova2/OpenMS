@@ -75,28 +75,6 @@ else()
     set (LIBSVM_INCLUDE_DIRS ${LIBSVM_INCLUDE_DIR})
   endif ()
   
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  # extract version
-  set (LIBSVM_MAJOR_VERSION 0)
-  set (LIBSVM_MINOR_VERSION 0)
-  set (LIBSVM_SUBMINOR_VERSION 0)
-  if (LIBSVM_INCLUDE_DIR)
-    # LIBSVM_VERSION macro defined in svm.h since version 2.8.9
-    file (STRINGS "${LIBSVM_INCLUDE_DIR}/svm.h" _VERSION_STRING REGEX ".*LIBSVM_VERSION.*")
-    if (_VERSION_STRING)
-      string (REGEX REPLACE ".*_VERSION[ ]+([0-9]+)" "\\1" _VERSION_NUMBER "${_VERSION_STRING}")
-      math (EXPR LIBSVM_MAJOR_VERSION "${_VERSION_NUMBER} / 100")
-      math (EXPR LIBSVM_MINOR_VERSION "(${_VERSION_NUMBER} % 100 ) / 10")
-      math (EXPR LIBSVM_SUBMINOR_VERSION "${_VERSION_NUMBER} % 10")
-    endif ()
-  endif ()
-  set (LIBSVM_VERSION "${LIBSVM_MAJOR_VERSION}.${LIBSVM_MINOR_VERSION}.${LIBSVM_SUBMINOR_VERSION}")
-  
->>>>>>> 67345d2d1f (vcpkg integration into CMakeLists.txt)
-=======
->>>>>>> bdc33b8705 (Support version detection for vcpkg libsvm discovery)
   # find LIBSVM_LIBRARY
   find_library (LIBSVM_LIBRARY_RELEASE NAMES svm libsvm DOC "LibSVM library location" )
   find_library (LIBSVM_LIBRARY_DEBUG NAMES svmd libsvmd DOC "LibSVM library location" )
