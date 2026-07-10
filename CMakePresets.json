@@ -9,8 +9,6 @@
             "cacheVariables": {
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "CMAKE_COLOR_DIAGNOSTICS": "ON",
-<<<<<<< HEAD
-<<<<<<< HEAD
                 "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake",
                 "OPENMS_USE_VCPKG": "ON",
                 "BOOST_USE_STATIC": "OFF"
@@ -20,25 +18,7 @@
             "name": "linux-base",
             "hidden": true,
             "inherits": "base",
-<<<<<<< HEAD
-            "condition":{
-=======
-                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
-=======
-                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake",
-                "OPENMS_USE_VCPKG": "ON",
-                "BOOST_USE_STATIC": "OFF"
->>>>>>> fc6227fb60 (Updated preset file)
-            }
-        },
-        {
-            "name": "linux-base",
-            "hidden": true,
-            "inherits": "base",
-            "condition":{
-=======
             "condition": {
->>>>>>> 41583ac6b2 (Add macos to vcpkg CI)
                 "type": "equals",
                 "lhs": "${hostSystemName}",
                 "rhs": "Linux"
@@ -52,6 +32,16 @@
                 "type": "equals",
                 "lhs": "${hostSystemName}",
                 "rhs": "Darwin"
+            }
+        },
+        {
+            "name": "windows-base",
+            "hidden": true,
+            "inherits": "base",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
             }
         },
         {
@@ -79,44 +69,12 @@
             }
         },
         {
-            "name": "debug-base",
+            "name": "windows-x64-base",
             "hidden": true,
-            "inherits": "base",
+            "inherits": "windows-base",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            }
-        },
-        {
-            "name": "release-base",
-            "hidden": true,
-            "inherits": "base",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
-<<<<<<< HEAD
-            },
-            "condition": {
->>>>>>> 7b8839670e (Add arm64 linux preset)
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Linux"
-            }
-        },
-        {
-<<<<<<< HEAD
-<<<<<<< HEAD
-            "name": "linux-x64-base",
-            "hidden": true,
-            "inherits": "linux-base",
-            "cacheVariables": {
-                "VCPKG_TARGET_TRIPLET":"x64-linux-dynamic"
-            }
-        },
-        {
-            "name": "linux-arm64-base",
-            "hidden": true,
-            "inherits": "linux-base",
-            "cacheVariables": {
-                "VCPKG_TARGET_TRIPLET":"arm64-linux-dynamic"
+                "VCPKG_TARGET_TRIPLET": "x64-windows-static-md-release",
+                "BOOST_USE_STATIC": "ON"
             }
         },
         {
@@ -209,107 +167,29 @@
             ]
         },
         {
-            "name": "linux-x64-ci",
-            "displayName": "Linux x64 CI",
-            "description": "OpenMS CI preset with vcpkg dependencies on Linux x64",
+            "name": "windows-x64-debug",
+            "displayName": "Windows x64 Debug",
+            "description": "OpenMS with vcpkg dependencies on Windows x64 Debug",
             "inherits": [
-                "linux-x64-base",
-                "release-base",
-                "ci-base"
-            ]
-        },
-        {
-            "name": "linux-arm64-ci",
-            "displayName": "Linux arm64 CI",
-            "description": "OpenMS CI preset with vcpkg dependencies on Linux arm64",
-            "inherits": [
-                "linux-arm64-base",
-                "release-base",
-                "ci-base"
-            ]
-<<<<<<< HEAD
-=======
-            "name": "linux",
-=======
-            "name": "linux-arm64",
->>>>>>> a9d5aea922 (Add linux clang and arm64 steps in CI)
-            "displayName": "Linux arm64",
-            "description": "Builds with core dependencies from the pinned vcpkg manifest",
-=======
-            }
-        },
-        {
-            "name": "relwithdebinfo-base",
-            "hidden": true,
->>>>>>> fc6227fb60 (Updated preset file)
-            "inherits": "base",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
-            }
-<<<<<<< HEAD
->>>>>>> 7b8839670e (Add arm64 linux preset)
-=======
-        },
-        {
-            "name": "ci-base",
-            "hidden": true,
-            "cacheVariables": {
-                "WITH_GUI": "OFF",
-                "WITH_THERMO_RAW": "OFF",
-                "WITH_THERMORAWFILEPARSER_TEST": "OFF"
-            }
-        },
-        {
-            "name": "linux-x64-debug",
-            "displayName": "Linux x64 Debug",
-            "description": "OpenMS with vcpkg dependencies on Linux x64 Debug",
-            "inherits": [
-                "linux-x64-base",
+                "windows-x64-base",
                 "debug-base"
             ]
         },
         {
-            "name": "linux-x64-relwithdebinfo",
-            "displayName": "Linux x64 RelWithDebInfo",
-            "description": "OpenMS with vcpkg dependencies on Linux x64 RelWithDebInfo",
+            "name": "windows-x64-relwithdebinfo",
+            "displayName": "Windows x64 RelWithDebInfo",
+            "description": "OpenMS with vcpkg dependencies on Windows x64 RelWithDebInfo",
             "inherits": [
-                "linux-x64-base",
+                "windows-x64-base",
                 "relwithdebinfo-base"
             ]
         },
         {
-            "name": "linux-x64-release",
-            "displayName": "Linux x64 Release",
-            "description": "OpenMS with vcpkg dependencies on Linux x64 Release",
+            "name": "windows-x64-release",
+            "displayName": "Windows x64 Release",
+            "description": "OpenMS with vcpkg dependencies on Windows x64 Release",
             "inherits": [
-                "linux-x64-base",
-                "release-base"
-            ]
-        },
-        {
-            "name": "linux-arm64-debug",
-            "displayName": "Linux arm64 Debug",
-            "description": "OpenMS with vcpkg dependencies on Linux arm64 Debug",
-            "inherits": [
-                "linux-arm64-base",
-                "debug-base"
-            ]
-        },
-        {
-            "name": "linux-arm64-relwithdebinfo",
-            "displayName": "Linux arm64 RelWithDebInfo",
-            "description": "OpenMS with vcpkg dependencies on Linux arm64 RelWithDebInfo",
-            "inherits": [
-                "linux-arm64-base",
-                "relwithdebinfo-base"
-            ]
-        },
-        {
-            "name": "linux-arm64-release",
-            "displayName": "Linux arm64 Release",
-            "description": "OpenMS with vcpkg dependencies on Linux arm64 Release",
-            "inherits": [
-                "linux-arm64-base",
+                "windows-x64-base",
                 "release-base"
             ]
         },
@@ -332,7 +212,6 @@
                 "release-base",
                 "ci-base"
             ]
-=======
         },
         {
             "name": "macos-arm64-ci",
@@ -342,15 +221,17 @@
                 "macos-arm64-base",
                 "release-base",
                 "ci-base"
-<<<<<<< HEAD
-            ],
-            "cacheVariables": {
-                "CMAKE_PREFIX_PATH": "$(brew --prefix);$(brew --prefix libomp)"
-            }
->>>>>>> 41583ac6b2 (Add macos to vcpkg CI)
-=======
             ]
->>>>>>> ccbb9f9ade (custom macos triplet)
+        },
+        {
+            "name": "windows-x64-ci",
+            "displayName": "Windows x64 CI",
+            "description": "OpenMS CI preset with vcpkg dependencies on Windows x64",
+            "inherits": [
+                "windows-x64-base",
+                "release-base",
+                "ci-base"
+            ]
         }
     ],
     "buildPresets": [
@@ -377,6 +258,18 @@
         {
             "name": "linux-arm64-relwithdebinfo",
             "configurePreset": "linux-arm64-relwithdebinfo"
+        },
+        {
+            "name": "windows-x64-debug",
+            "configurePreset": "windows-x64-debug"
+        },
+        {
+            "name": "windows-x64-release",
+            "configurePreset": "windows-x64-release"
+        },
+        {
+            "name": "windows-x64-relwithdebinfo",
+            "configurePreset": "windows-x64-relwithdebinfo"
         },
         {
             "name": "linux-x64-ci",
@@ -389,6 +282,10 @@
         {
             "name": "macos-arm64-ci",
             "configurePreset": "macos-arm64-ci"
+        },
+        {
+            "name": "windows-x64-ci",
+            "configurePreset": "windows-x64-ci"
         }
     ],
     "testPresets": [
@@ -433,6 +330,21 @@
             "inherits": "test-base"
         },
         {
+            "name": "windows-x64-debug",
+            "configurePreset": "windows-x64-debug",
+            "inherits": "test-base"
+        },
+        {
+            "name": "windows-x64-release",
+            "configurePreset": "windows-x64-release",
+            "inherits": "test-base"
+        },
+        {
+            "name": "windows-x64-relwithdebinfo",
+            "configurePreset": "windows-x64-relwithdebinfo",
+            "inherits": "test-base"
+        },
+        {
             "name": "linux-x64-ci",
             "configurePreset": "linux-x64-ci",
             "inherits": "test-base"
@@ -441,115 +353,16 @@
             "name": "linux-arm64-ci",
             "configurePreset": "linux-arm64-ci",
             "inherits": "test-base"
-<<<<<<< HEAD
->>>>>>> fc6227fb60 (Updated preset file)
-=======
         },
         {
             "name": "macos-arm64-ci",
             "configurePreset": "macos-arm64-ci",
             "inherits": "test-base"
->>>>>>> 41583ac6b2 (Add macos to vcpkg CI)
+        },
+        {
+            "name": "windows-x64-ci",
+            "configurePreset": "windows-x64-ci",
+            "inherits": "test-base"
         }
-<<<<<<< HEAD
-    ],
-    "buildPresets": [
-        {
-            "name": "linux-x64-debug",
-            "configurePreset": "linux-x64-debug"
-        },
-        {
-            "name": "linux-x64-release",
-            "configurePreset": "linux-x64-release"
-        },
-        {
-            "name": "linux-x64-relwithdebinfo",
-            "configurePreset": "linux-x64-relwithdebinfo"
-        },
-        {
-            "name": "linux-arm64-debug",
-            "configurePreset": "linux-arm64-debug"
-        },
-        {
-            "name": "linux-arm64-release",
-            "configurePreset": "linux-arm64-release"
-        },
-        {
-            "name": "linux-arm64-relwithdebinfo",
-            "configurePreset": "linux-arm64-relwithdebinfo"
-        },
-        {
-            "name": "linux-x64-ci",
-            "configurePreset": "linux-x64-ci"
-        },
-        {
-            "name": "linux-arm64-ci",
-            "configurePreset": "linux-arm64-ci"
-        }
-    ],
-    "testPresets": [
-        {
-            "name": "test-base",
-            "hidden": true,
-            "output": {
-                "outputOnFailure": true
-            },
-            "execution": {
-                "noTestsAction": "error"
-            }
-        },
-        {
-            "name": "linux-x64-debug",
-            "configurePreset": "linux-x64-debug",
-            "inherits": "test-base"
-        },
-        {
-<<<<<<< HEAD
-            "name": "linux-x64-release",
-            "configurePreset": "linux-x64-release",
-            "inherits": "test-base"
-        },
-        {
-            "name": "linux-x64-relwithdebinfo",
-            "configurePreset": "linux-x64-relwithdebinfo",
-            "inherits": "test-base"
-        },
-        {
-            "name": "linux-arm64-debug",
-            "configurePreset": "linux-arm64-debug",
-            "inherits": "test-base"
-        },
-        {
-            "name": "linux-arm64-release",
-            "configurePreset": "linux-arm64-release",
-            "inherits": "test-base"
-        },
-        {
-            "name": "linux-arm64-relwithdebinfo",
-            "configurePreset": "linux-arm64-relwithdebinfo",
-            "inherits": "test-base"
-        },
-        {
-            "name": "linux-x64-ci",
-            "configurePreset": "linux-x64-ci",
-            "inherits": "test-base"
-        },
-        {
-            "name": "linux-arm64-ci",
-            "configurePreset": "linux-arm64-ci",
-            "inherits": "test-base"
-=======
-            "name": "linux-debug",
-            "displayName": "Debug",
-            "inherits": "debug"
-        },
-        {
-            "name": "linux-release",
-            "displayName": "Release",
-            "inherits": "release"
->>>>>>> a9d5aea922 (Add linux clang and arm64 steps in CI)
-        }
-=======
->>>>>>> 7799eec2ea (Depedencies fixes in vcpkg ci file)
     ]
 }
