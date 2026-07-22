@@ -1,6 +1,6 @@
 {
   "name": "libomp",
-  "version": "12.0.1",
+  "version": "17.0.6",
   "description": "LLVM's OpenMP runtime library, built standalone.",
   "homepage": "https://llvm.org",
   "license": "Apache-2.0 WITH LLVM-exception",
