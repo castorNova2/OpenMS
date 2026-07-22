@@ -57,6 +57,10 @@
     "coinutils",
     "curl",
     "eigen3",
+    {
+      "name": "libomp",
+      "platform": "osx"
+    },
     "libsvm",
     "libxml2",
     "libzip",

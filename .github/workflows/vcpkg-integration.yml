@@ -144,7 +144,6 @@ jobs:
               libtool \
               pkg-config \
               git \
-              libomp \
               libsvm \
               xerces-c \
               boost \
