@@ -109,7 +109,8 @@
                 "WITH_THERMO_RAW": "ON",
                 "WITH_THERMORAWFILEPARSER_TEST": "ON",
                 "ENABLE_DOCS": "OFF",
-                "ENABLE_TUTORIALS": "OFF"
+                "ENABLE_TUTORIALS": "OFF",
+                "WITH_ONNX": "ON"
             }
         },
         {
