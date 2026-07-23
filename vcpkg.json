@@ -58,10 +58,9 @@
     "curl",
     "eigen3",
     {
-      "name": "libomp",
-      "platform": "osx"
+      "name":"libsvm",
+      "features": "tools" 
     },
-    "libsvm",
     "libxml2",
     "libzip",
     "xerces-c",
