@@ -57,12 +57,10 @@
     "coinutils",
     "curl",
     "eigen3",
-    {
-      "name":"libsvm",
-      "features": "tools" 
-    },
+    "libsvm",
     "libxml2",
     "libzip",
+    "openms-thermo-bridge",
     "xerces-c",
     "zlib"
   ],

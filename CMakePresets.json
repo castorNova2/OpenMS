@@ -106,8 +106,8 @@
             "hidden": true,
             "cacheVariables": {
                 "WITH_GUI": "OFF",
-                "WITH_THERMO_RAW": "OFF",
-                "WITH_THERMORAWFILEPARSER_TEST": "OFF",
+                "WITH_THERMO_RAW": "ON",
+                "WITH_THERMORAWFILEPARSER_TEST": "ON",
                 "ENABLE_DOCS": "OFF",
                 "ENABLE_TUTORIALS": "OFF"
             }
