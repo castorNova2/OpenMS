@@ -60,6 +60,7 @@
     "libsvm",
     "libxml2",
     "libzip",
+    "onnxruntime",
     "openms-thermo-bridge",
     "xerces-c",
     "zlib"

@@ -90,6 +90,7 @@ jobs:
               git \
               ninja-build \
               xvfb \
+              mono-complete \
               ccache \
               libgl-dev \
               libeigen3-dev \

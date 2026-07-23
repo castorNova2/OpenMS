@@ -1,8 +1,1 @@
-libomp provides the OpenMP runtime that AppleClang doesn't ship
-
-If CMake's find_package(OpenMP) doesn't pick it up automatically on your
-triplet, point it at the vcpkg install prefix:
-
-    find_package(OpenMP REQUIRED)
-    #or, if that also fails so maybe locate it:
-    set(OpenMP_ROOT "${VCPKG_INSTALLED_DIR}/<triplet>")
+Openms thermo bridge
