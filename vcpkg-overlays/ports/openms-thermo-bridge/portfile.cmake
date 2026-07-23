@@ -3,7 +3,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO OpenMS/openms-thermo-bridge
     REF "v${VERSION}"
-    SHA512 0 
+    SHA512 436daff0a332a48da3945eb85e03a49612a0b2489dbbf64692c5ff1b8ac6df00c1cad2fe9fd987166662ab675e8a234c1a026911c47abac9ca6b8f9cf7cb7151
     HEAD_REF main
     PATCHES
         vcpkg-nethost-use.patch
