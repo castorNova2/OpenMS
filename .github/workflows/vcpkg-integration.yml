@@ -374,6 +374,9 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: vcpkg-buildtrees-${{ matrix.variant_name }}
-          path: ${{ github.workspace }}/vcpkg/buildtrees
+          name: vcpkg-debug-${{ matrix.variant_name }}
+          path: |
+            ${{ github.workspace }}/build/${{ matrix.configure_preset }}
+            ${{ github.workspace }}/vcpkg/packages
+            ${{ github.workspace }}/vcpkg/buildtrees
 
