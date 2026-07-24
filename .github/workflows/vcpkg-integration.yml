@@ -65,7 +65,7 @@ jobs:
 
       - uses: lukka/get-cmake@latest
         with:
-          cmakeVersion: 3.25.2
+          cmakeVersion: 3.28
 
       - name: Emulate a Visual Studio shell (Windows)
         if: startsWith(matrix.os, 'windows')
@@ -144,6 +144,7 @@ jobs:
               automake \
               libtool \
               pkg-config \
+              mono \
               git \
               libsvm \
               xerces-c \

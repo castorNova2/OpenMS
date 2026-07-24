@@ -1,0 +1,19 @@
+diff --git a/onnxruntime/core/common/cpuid_info.cc b/onnxruntime/core/common/cpuid_info.cc
+index 6c66047b..84779505 100644
+--- a/onnxruntime/core/common/cpuid_info.cc
++++ b/onnxruntime/core/common/cpuid_info.cc
+@@ -160,7 +160,13 @@ void CPUIDInfo::X86Init() {
+         if (check_intel.is_intel) {
+ #ifdef __linux__
+ #if !defined(__ANDROID__)
+-          has_tpause_ = __builtin_cpu_supports("waitpkg") != 0;
++          #if defined(__clang__)
++          //clang does not recognized "waitpkg" as a valid feature string so treating it
++          // as unsupported
++            has_tpause_ = false;
++          #else
++            has_tpause_ = __builtin_cpu_supports("waitpkg") != 0;
++          #endif
+ #endif
+ #else
+           has_tpause_ = (data[2] & (1 << 5)) != 0;
