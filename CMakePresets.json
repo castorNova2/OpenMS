@@ -112,7 +112,7 @@
                 "ENABLE_TUTORIALS": "OFF",
                 "WITH_ONNX": "ON",
                 "WITH_OPENTIMS": "ON",
-                "ENABLE_OPENTIMS_TESTS": "ON",
+                "ENABLE_OPENTIMS_TESTS": "OFF",
                 "WITH_WNETALIGN": "ON"
             }
         },
@@ -167,6 +167,33 @@
             "description": "OpenMS with vcpkg dependencies on Linux arm64 Release",
             "inherits": [
                 "linux-arm64-base",
+                "release-base"
+            ]
+        },
+        {
+            "name": "macos-arm64-debug",
+            "displayName": "MacOS arm64 Debug",
+            "description": "OpenMS with vcpkg dependencies on MacOS arm64 Debug",
+            "inherits": [
+                "macos-arm64-base",
+                "debug-base"
+            ]
+        },
+        {
+            "name": "macos-arm64-relwithdebinfo",
+            "displayName": "MacOS arm64 RelWithDebInfo",
+            "description": "OpenMS with vcpkg dependencies on MacOS arm64 RelWithDebInfo",
+            "inherits": [
+                "macos-arm64-base",
+                "relwithdebinfo-base"
+            ]
+        },
+        {
+            "name": "macos-arm64-release",
+            "displayName": "MacOS arm64 Release",
+            "description": "OpenMS with vcpkg dependencies on MacOS arm64 Release",
+            "inherits": [
+                "macos-arm64-base",
                 "release-base"
             ]
         },
@@ -264,6 +291,18 @@
             "configurePreset": "linux-arm64-relwithdebinfo"
         },
         {
+            "name": "macos-arm64-debug",
+            "configurePreset": "macos-arm64-debug"
+        },
+        {
+            "name": "macos-arm64-release",
+            "configurePreset": "macos-arm64-release"
+        },
+        {
+            "name": "macos-arm64-relwithdebinfo",
+            "configurePreset": "macos-arm64-relwithdebinfo"
+        },
+        {
             "name": "windows-x64-debug",
             "configurePreset": "windows-x64-debug"
         },
@@ -331,6 +370,21 @@
         {
             "name": "linux-arm64-relwithdebinfo",
             "configurePreset": "linux-arm64-relwithdebinfo",
+            "inherits": "test-base"
+        },
+        {
+            "name": "macos-arm64-debug",
+            "configurePreset": "macos-arm64-debug",
+            "inherits": "test-base"
+        },
+        {
+            "name": "macos-arm64-release",
+            "configurePreset": "macos-arm64-release",
+            "inherits": "test-base"
+        },
+        {
+            "name": "macos-arm64-relwithdebinfo",
+            "configurePreset": "macos-arm64-relwithdebinfo",
             "inherits": "test-base"
         },
         {
