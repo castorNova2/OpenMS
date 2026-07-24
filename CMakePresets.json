@@ -110,7 +110,10 @@
                 "WITH_THERMORAWFILEPARSER_TEST": "ON",
                 "ENABLE_DOCS": "OFF",
                 "ENABLE_TUTORIALS": "OFF",
-                "WITH_ONNX": "ON"
+                "WITH_ONNX": "ON",
+                "WITH_OPENTIMS": "ON",
+                "ENABLE_OPENTIMS_TESTS": "ON",
+                "WITH_WNETALIGN": "ON"
             }
         },
         {
