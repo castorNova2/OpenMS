@@ -264,9 +264,18 @@ endif()
 # Arrow's CMake config may import nlohmann_json as a transitive dependency.
 # If so, force the vendored extern to use the already-imported target instead
 # of trying to add_library() a second target with the same name.
+# if(TARGET nlohmann_json::nlohmann_json)
+#   set(USE_EXTERNAL_JSON ON CACHE BOOL "Use an external nlohmann::json library" FORCE)
+# endif()
+
 if(TARGET nlohmann_json::nlohmann_json)
-  set(USE_EXTERNAL_JSON ON CACHE BOOL "Use an external nlohmann::json library" FORCE)
+  message(STATUS "DEBUG: JSON target exists here")
+  set(USE_EXTERNAL_JSON ON CACHE BOOL "" FORCE)
+else()
+  message(STATUS "DEBUG: JSON target does NOT exist here")
 endif()
+
+message(STATUS "DEBUG: USE_EXTERNAL_JSON=${USE_EXTERNAL_JSON}")
 
 # Determine Arrow target based on ARROW_USE_STATIC preference
 if(ARROW_USE_STATIC AND TARGET Arrow::arrow_static)
