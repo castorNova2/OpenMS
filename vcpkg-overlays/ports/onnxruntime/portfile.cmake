@@ -17,7 +17,7 @@ vcpkg_from_github(
         fix-cmake-cuda.patch
         fix-missing-cstdint.patch
         fix-cmake-mlas.patch
-        fix-clang-waitpkg-builtin.patch
+        fix-clang-waitpkg-and-tpause-builtin.patch
 )
 
 find_program(PROTOC NAMES protoc PATHS "${CURRENT_HOST_INSTALLED_DIR}/tools/protobuf" REQUIRED NO_DEFAULT_PATH NO_CMAKE_PATH)
