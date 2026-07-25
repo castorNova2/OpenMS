@@ -113,7 +113,8 @@
                 "WITH_ONNX": "ON",
                 "WITH_OPENTIMS": "ON",
                 "ENABLE_OPENTIMS_TESTS": "OFF",
-                "WITH_WNETALIGN": "ON"
+                "WITH_WNETALIGN": "ON",
+                "USE_EXTERNAL_JSON": "ON"
             }
         },
         {
