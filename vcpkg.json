@@ -61,7 +61,11 @@
     "libxml2",
     "libzip",
     "onnxruntime",
-    "openms-thermo-bridge",
+    {
+
+      "name":"openms-thermo-bridge",
+      "platform": "!(linux & arm64)"
+    },
     "opentims",
     "xerces-c",
     "zlib"

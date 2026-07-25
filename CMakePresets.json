@@ -244,7 +244,7 @@
                 "ci-base"
             ],
             "cacheVariables": {
-                "ENABLE_DOCS": "ON"
+                "ENABLE_DOCS": "OFF"
             }
         },
         {
@@ -257,7 +257,7 @@
                 "ci-base"
             ],
             "cacheVariables": {
-                "ENABLE_DOCS": "ON"
+                "ENABLE_DOCS": "OFF"
             }
         },
         {
