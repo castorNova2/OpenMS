@@ -62,6 +62,7 @@
     "libzip",
     "onnxruntime",
     "openms-thermo-bridge",
+    "opentims",
     "xerces-c",
     "zlib"
   ],

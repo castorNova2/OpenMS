@@ -111,7 +111,6 @@ jobs:
               libsimde-dev \
               libzip-dev \
               doxygen \
-              ghostscript \
               graphviz
 
             # Install uv
@@ -159,7 +158,9 @@ jobs:
               libzip \
               zstd \
               bash \
-              uv
+              uv \
+              doxygen \
+              graphviz
             
             echo "$(brew --prefix bison)/bin" >> "$GITHUB_PATH"
             echo "$(brew --prefix flex)/bin" >> "$GITHUB_PATH"
