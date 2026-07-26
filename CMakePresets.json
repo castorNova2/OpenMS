@@ -109,7 +109,7 @@
                 "WITH_THERMO_RAW": "ON",
                 "WITH_THERMORAWFILEPARSER_TEST": "ON",
                 "ENABLE_TUTORIALS": "OFF",
-                "WITH_ONNX": "ON",
+                "WITH_ONNX": "OFF",
                 "WITH_OPENTIMS": "ON",
                 "ENABLE_OPENTIMS_TESTS": "OFF",
                 "WITH_WNETALIGN": "ON",

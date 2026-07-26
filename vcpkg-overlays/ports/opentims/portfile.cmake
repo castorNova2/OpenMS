@@ -4,7 +4,7 @@ vcpkg_from_github(
     REF "v${VERSION}"
     SHA512 43f1b8345a41ac99e4b1ee4c09308f1d9f806bfa91f36c575d52cf7c2757c64877188d65c555c71c357da8dc4efe4b173a81de5b5b0bb0b0ee784b7dd7620a29
     HEAD_REF master
-    PATHCES
+    PATCHES
         fix-static-sqlite-include.patch
 )
 
