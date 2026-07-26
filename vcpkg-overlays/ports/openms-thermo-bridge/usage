@@ -1,1 +1,4 @@
-Openms thermo bridge
+openms-thermo-bridge provides CMake targets:
+
+    find_package(OpenMSThermoBridge CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE OpenMSThermoBridge::openms_thermo_bridge)
