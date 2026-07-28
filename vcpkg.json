@@ -60,6 +60,7 @@
     "libsvm",
     "libxml2",
     "libzip",
+    "nlohmann-json",
     "onnxruntime",
     {
 
@@ -67,6 +68,7 @@
       "platform": "!(linux & arm64)"
     },
     "opentims",
+    "sqlitecpp",
     "xerces-c",
     "zlib"
   ],
