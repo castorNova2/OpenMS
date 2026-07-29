@@ -115,7 +115,9 @@
                 "WITH_WNETALIGN": "OFF",
                 "USE_EXTERNAL_JSON": "OFF",
                 "USE_EXTERNAL_SQLITECPP": "OFF",
-                "WITH_HDF5": "ON"
+                "WITH_HDF5": "OFF",
+                "LP_SOLVER": "GLPK",
+                "VCPKG_MANIFEST_FEATURES": "lp-glpk;hdf5"
             }
         },
         {
