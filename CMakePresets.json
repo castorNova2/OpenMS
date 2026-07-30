@@ -110,14 +110,12 @@
                 "WITH_THERMORAWFILEPARSER_TEST": "OFF",
                 "ENABLE_TUTORIALS": "OFF",
                 "WITH_ONNX": "OFF",
-                "WITH_OPENTIMS": "OFF",
+                "WITH_OPENTIMS": "ON",
                 "ENABLE_OPENTIMS_TESTS": "OFF",
                 "WITH_WNETALIGN": "OFF",
                 "USE_EXTERNAL_JSON": "OFF",
-                "USE_EXTERNAL_SQLITECPP": "OFF",
-                "WITH_HDF5": "OFF",
-                "LP_SOLVER": "HIGHS",
-                "VCPKG_MANIFEST_FEATURES": "lp-highs"
+                "USE_EXTERNAL_SQLITECPP": "ON",
+                "WITH_HDF5": "OFF"
             }
         },
         {

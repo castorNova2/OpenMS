@@ -61,7 +61,6 @@
     "libxml2",
     "libzip",
     "nlohmann-json",
-    "onnxruntime",
     {
 
       "name":"openms-thermo-bridge",
@@ -81,6 +80,14 @@
           "features": [
             "cpp"
           ]
+        }
+      ]
+    },
+    "onnxruntime": {
+      "description": "ONNX runtime for builds configured with -DWITH_ONNX=ON.",
+      "dependencies": [
+        {
+          "name": "onnxruntime"
         }
       ]
     },
