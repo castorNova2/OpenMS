@@ -115,9 +115,9 @@
                 "WITH_WNETALIGN": "OFF",
                 "USE_EXTERNAL_JSON": "OFF",
                 "USE_EXTERNAL_SQLITECPP": "OFF",
-                "WITH_HDF5": "ON",
-                "LP_SOLVER": "highs",
-                "VCPKG_MANIFEST_FEATURES": "lp-highs;hdf5"
+                "WITH_HDF5": "OFF",
+                "LP_SOLVER": "HIGHS",
+                "VCPKG_MANIFEST_FEATURES": "lp-highs"
             }
         },
         {
