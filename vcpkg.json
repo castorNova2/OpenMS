@@ -57,6 +57,7 @@
     "coinutils",
     "curl",
     "eigen3",
+    "isospec",
     "libsvm",
     "libxml2",
     "libzip",
