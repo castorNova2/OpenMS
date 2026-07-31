@@ -504,11 +504,8 @@ if (WITH_OPENTIMS)
     if(_opentims_defs MATCHES "OPENTIMS_LINK_SQLITE_STATICALLY"
        OR ((_opentims_defs MATCHES "NOTFOUND" OR _opentims_defs STREQUAL "") AND NOT opentims_FOUND))
       #TODO: Testing
-      cmake_language(DEFER CALL target_include_directories 
-        opentims::opentims_cpp INTERFACE
-        "${CMAKE_SOURCE_DIR}/src/openms/extern/SQLiteCpp/sqlite3")
       cmake_language(DEFER CALL target_link_libraries 
-        opentims::opentims_cpp INTERFACE sqlite3)
+        opentims::opentims_cpp INTERFACE SQLite::SQLite3)
       message(STATUS "opentims: injecting OpenMS sqlite3 (library was built with static sqlite)")
     endif()
   else()
