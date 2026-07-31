@@ -114,7 +114,7 @@
                 "ENABLE_OPENTIMS_TESTS": "OFF",
                 "WITH_WNETALIGN": "OFF",
                 "USE_EXTERNAL_JSON": "OFF",
-                "USE_EXTERNAL_SQLITECPP": "ON",
+                "USE_EXTERNAL_SQLITECPP": "OFF",
                 "USE_EXTERNAL_ISOSPEC":"ON",
                 "WITH_HDF5": "OFF"
             }
