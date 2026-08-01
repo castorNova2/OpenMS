@@ -57,6 +57,7 @@
     "coinutils",
     "curl",
     "eigen3",
+    "eol-bspline",
     "isospec",
     "libsvm",
     "libxml2",
@@ -89,6 +90,14 @@
       "dependencies": [
         {
           "name": "onnxruntime"
+        }
+      ]
+    },
+    "opentims": {
+      "description": "OpenTIMS for builds configured with -DWITH_OPENTIMS=ON.",
+      "dependencies": [
+        {
+          "name": "opentims"
         }
       ]
     },

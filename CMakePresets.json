@@ -110,12 +110,13 @@
                 "WITH_THERMORAWFILEPARSER_TEST": "OFF",
                 "ENABLE_TUTORIALS": "OFF",
                 "WITH_ONNX": "OFF",
-                "WITH_OPENTIMS": "OFF",
+                "WITH_OPENTIMS": "ON",
                 "ENABLE_OPENTIMS_TESTS": "OFF",
                 "WITH_WNETALIGN": "OFF",
                 "USE_EXTERNAL_JSON": "OFF",
                 "USE_EXTERNAL_SQLITECPP": "OFF",
                 "USE_EXTERNAL_ISOSPEC":"ON",
+                "USE_EXTERNAL_EOLBSPLINE":"ON",
                 "WITH_HDF5": "OFF"
             }
         },

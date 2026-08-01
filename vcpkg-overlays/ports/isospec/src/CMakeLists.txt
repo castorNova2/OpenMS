@@ -45,6 +45,12 @@ add_library(IsoSpec STATIC ${ISOSPEC_SOURCES})
 # Require C++11 for IsoSpec
 target_compile_features(IsoSpec PUBLIC cxx_std_11)
 
+target_compile_definitions(IsoSpec PUBLIC
+  ISOSPEC_GOT_SYSTEM_MMAN=false
+  ISOSPEC_GOT_MMAN=false
+  ISOSPEC_BUILDING_OPENMS=true
+)
+
 # Set include directories for the library
 target_include_directories(IsoSpec SYSTEM PUBLIC 
                           "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>"
