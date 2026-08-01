@@ -5,14 +5,7 @@
     {
       "name": "arrow",
       "default-features": false,
-      "features": [
-        "compute",
-        "dataset",
-        "filesystem",
-        "json",
-        "parquet",
-        "s3"
-      ]
+      "features": ["compute", "dataset", "filesystem", "json", "parquet", "s3"]
     },
     "boost-accumulators",
     "boost-algorithm",
@@ -64,8 +57,7 @@
     "libzip",
     "nlohmann-json",
     {
-
-      "name":"openms-thermo-bridge",
+      "name": "openms-thermo-bridge",
       "platform": "!(linux & arm64)"
     },
     "opentims",
@@ -79,25 +71,31 @@
       "dependencies": [
         {
           "name": "hdf5",
-          "features": [
-            "cpp"
-          ]
+          "features": ["cpp"]
+        }
+      ]
+    },
+    "eol-bspline": {
+      "description": "eol-bspline for builds configured with -DUSE_EXTERNAL_EOLBSPLINE=ON.",
+      "dependencies": [
+        {
+          "name": "eol-bspline"
+        }
+      ]
+    },
+    "isospec": {
+      "description": "IsoSpec for builds configured with -DUSE_EXTERNAL_ISOSPEC=ON.",
+      "dependencies": [
+        {
+          "name": "isospec"
         }
       ]
     },
     "onnxruntime": {
-      "description": "ONNX runtime for builds configured with -DWITH_ONNX=ON.",
+      "description": "ONNX runtime library for builds configured with -DWITH_ONNX=ON.",
       "dependencies": [
         {
           "name": "onnxruntime"
-        }
-      ]
-    },
-    "opentims": {
-      "description": "OpenTIMS for builds configured with -DWITH_OPENTIMS=ON.",
-      "dependencies": [
-        {
-          "name": "opentims"
         }
       ]
     },
@@ -112,9 +110,7 @@
     },
     "lp-highs": {
       "description": "HiGHS solver dependency for builds configured with -DLP_SOLVER=HIGHS.",
-      "dependencies": [
-        "highs"
-      ]
+      "dependencies": ["highs"]
     }
   }
 }
