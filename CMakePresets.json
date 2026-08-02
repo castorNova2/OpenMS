@@ -115,9 +115,10 @@
                 "USE_EXTERNAL_SQLITECPP": "ON",
                 "USE_EXTERNAL_ISOSPEC":"OFF",
                 "USE_EXTERNAL_EOLBSPLINE":"OFF",
-                "WITH_HDF5": "ON",
+                "WITH_HDF5": "OFF",
+                "LP_SOLVER":"HIGHS",
                 "PYOPENMS":"OFF",
-                "VCPKG_MANIFEST_FEATURES":"hdf5"
+                "VCPKG_MANIFEST_FEATURES":"lp-highs"
             }
         },
         {
