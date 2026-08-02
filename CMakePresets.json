@@ -116,9 +116,9 @@
                 "USE_EXTERNAL_ISOSPEC":"OFF",
                 "USE_EXTERNAL_EOLBSPLINE":"OFF",
                 "WITH_HDF5": "OFF",
-                "LP_SOLVER":"HIGHS",
+                "LP_SOLVER":"GLPK",
                 "PYOPENMS":"OFF",
-                "VCPKG_MANIFEST_FEATURES":"lp-highs"
+                "VCPKG_MANIFEST_FEATURES":"lp-glpk"
             }
         },
         {
