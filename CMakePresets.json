@@ -113,6 +113,7 @@
                 "WITH_WNETALIGN": "OFF",
                 "USE_EXTERNAL_JSON": "OFF",
                 "USE_EXTERNAL_SQLITECPP": "ON",
+                "USE_EXTERNAL_SIMDE": "ON",
                 "USE_EXTERNAL_ISOSPEC":"OFF",
                 "USE_EXTERNAL_EOLBSPLINE":"OFF",
                 "WITH_HDF5": "OFF",

@@ -61,6 +61,7 @@
       "platform": "!(linux & arm64)"
     },
     "opentims",
+    "simde",
     "sqlitecpp",
     "xerces-c",
     "zlib"
