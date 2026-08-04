@@ -363,43 +363,53 @@ option(WITH_WNETALIGN "Enable WNet alignment (fetches pylmcf, wnet, wnetalign)" 
 set(WNETALIGN_INCLUDE_DIRS "")
 
 if(WITH_WNETALIGN)
-  include(FetchContent)
+  if(OPENMS_USE_VCPKG)
 
-  # Header-only: use GIT_REPOSITORY for reproducible versioned fetch.
-  # To override with local checkouts, set FETCHCONTENT_SOURCE_DIR_PYLMCF,
-  # FETCHCONTENT_SOURCE_DIR_WNET, FETCHCONTENT_SOURCE_DIR_WNETALIGN.
-  FetchContent_Declare(
-    pylmcf
-    GIT_REPOSITORY https://github.com/michalsta/pylmcf.git
-    GIT_TAG        v0.9.8  # d2c9c52bd67d7198ae17b389d77884357260f114
-    GIT_SHALLOW    TRUE
-    SOURCE_SUBDIR  _no_cmake
-  )
-  FetchContent_Declare(
-    wnet
-    GIT_REPOSITORY https://github.com/michalsta/wnet.git
-    GIT_TAG        v0.9.11  # 18a15250adb7ed478ef40d26d736bcd873265c74
-    GIT_SHALLOW    TRUE
-    SOURCE_SUBDIR  _no_cmake
-  )
-  FetchContent_Declare(
-    wnetalign
-    GIT_REPOSITORY https://github.com/michalsta/wnetalign.git
-    GIT_TAG        v0.9.8  # cff6a19a6b540247d57044e06b1852afe24346a0
-    GIT_SHALLOW    TRUE
-    SOURCE_SUBDIR  _no_cmake
-  )
+    find_path(WNETALIGN_INC NAMES aligner.hpp PATH_SUFFIXES wnetalign)
+    find_path(WNET_INC NAMES graph_elements.hpp PATH_SUFFIXES wnet)
+    find_path(PYLMCF_INC NAMES lmcf.hpp PATH_SUFFIXES pylmcf)
+    
+    set(WNETALIGN_INCLUDE_DIRS ${PYLMCF_INC} ${WNET_INC} ${WNETALIGN_INC})
+    
+  else()
+    include(FetchContent)
 
-  # MakeAvailable populates source dirs without running the top-level
-  # CMakeLists (SOURCE_SUBDIR points to a nonexistent subdirectory), so
-  # nanobind Python modules are never configured.
-  FetchContent_MakeAvailable(pylmcf wnet wnetalign)
+    # Header-only: use GIT_REPOSITORY for reproducible versioned fetch.
+    # To override with local checkouts, set FETCHCONTENT_SOURCE_DIR_PYLMCF,
+    # FETCHCONTENT_SOURCE_DIR_WNET, FETCHCONTENT_SOURCE_DIR_WNETALIGN.
+    FetchContent_Declare(
+      pylmcf
+      GIT_REPOSITORY https://github.com/michalsta/pylmcf.git
+      GIT_TAG        v0.9.8  # d2c9c52bd67d7198ae17b389d77884357260f114
+      GIT_SHALLOW    TRUE
+      SOURCE_SUBDIR  _no_cmake
+    )
+    FetchContent_Declare(
+      wnet
+      GIT_REPOSITORY https://github.com/michalsta/wnet.git
+      GIT_TAG        v0.9.11  # 18a15250adb7ed478ef40d26d736bcd873265c74
+      GIT_SHALLOW    TRUE
+      SOURCE_SUBDIR  _no_cmake
+    )
+    FetchContent_Declare(
+      wnetalign
+      GIT_REPOSITORY https://github.com/michalsta/wnetalign.git
+      GIT_TAG        v0.9.8  # cff6a19a6b540247d57044e06b1852afe24346a0
+      GIT_SHALLOW    TRUE
+      SOURCE_SUBDIR  _no_cmake
+    )
 
-  set(WNETALIGN_INCLUDE_DIRS
-    "${pylmcf_SOURCE_DIR}/src/pylmcf/cpp"
-    "${wnet_SOURCE_DIR}/src/wnet/cpp"
-    "${wnetalign_SOURCE_DIR}/src/wnetalign/cpp"
-  )
+    # MakeAvailable populates source dirs without running the top-level
+    # CMakeLists (SOURCE_SUBDIR points to a nonexistent subdirectory), so
+    # nanobind Python modules are never configured.
+    FetchContent_MakeAvailable(pylmcf wnet wnetalign)
+
+    set(WNETALIGN_INCLUDE_DIRS
+      "${pylmcf_SOURCE_DIR}/src/pylmcf/cpp"
+      "${wnet_SOURCE_DIR}/src/wnet/cpp"
+      "${wnetalign_SOURCE_DIR}/src/wnetalign/cpp"
+    )
+  endif()
 
   message(STATUS "wnetalign include dirs: ${WNETALIGN_INCLUDE_DIRS}")
 endif()

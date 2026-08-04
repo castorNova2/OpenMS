@@ -64,7 +64,10 @@
     "simde",
     "sqlitecpp",
     "xerces-c",
-    "zlib"
+    "zlib",
+    "pylmcf",
+    "wnet",
+    "wnetalign"
   ],
   "features": {
     "hdf5": {
