@@ -50,19 +50,14 @@
     "coinutils",
     "curl",
     "eigen3",
-    "eol-bspline",
-    "isospec",
     "libsvm",
     "libxml2",
     "libzip",
-    "nlohmann-json",
     {
       "name": "openms-thermo-bridge",
       "platform": "!(linux & arm64)"
     },
     "opentims",
-    "simde",
-    "sqlitecpp",
     "xerces-c",
     "zlib",
     "pylmcf",
@@ -92,6 +87,30 @@
       "dependencies": [
         {
           "name": "isospec"
+        }
+      ]
+    },
+    "sqlitecpp": {
+      "description": "IsoSpec for builds configured with -DUSE_EXTERNAL_SQLITECPP=ON.",
+      "dependencies": [
+        {
+          "name": "sqlitecpp"
+        }
+      ]
+    },
+    "nlohmann-json": {
+      "description": "nlohmann-json for builds configured with -DUSE_EXTERNAL_JSON=ON.",
+      "dependencies": [
+        {
+          "name": "nlohmann-json"
+        }
+      ]
+    },
+    "simde": {
+      "description": "SIMDe for builds configured with -DUSE_EXTERNAL_SIMDE=ON.",
+      "dependencies": [
+        {
+          "name": "simde"
         }
       ]
     },
