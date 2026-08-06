@@ -106,19 +106,20 @@
             "hidden": true,
             "cacheVariables": {
                 "WITH_GUI": "OFF",
+                "BUILD_TOPP_TOOLS": "ON",
                 "WITH_THERMORAWFILEPARSER_TEST": "ON",
                 "ENABLE_TUTORIALS": "OFF",
                 "WITH_ONNX": "OFF",
                 "ENABLE_OPENTIMS_TESTS": "OFF",
                 "WITH_WNETALIGN": "ON",
                 "USE_EXTERNAL_JSON": "ON",
-                "USE_EXTERNAL_SQLITECPP": "ON",
+                "USE_EXTERNAL_SQLITECPP": "OFF",
                 "USE_EXTERNAL_SIMDE": "ON",
                 "USE_EXTERNAL_ISOSPEC":"ON",
                 "USE_EXTERNAL_EOLBSPLINE":"ON",
                 "WITH_HDF5": "OFF",
-                "PYOPENMS":"OFF",
-                "VCPKG_MANIFEST_FEATURES":"isospec;eol-bspline;simde;nlohmann-json;sqlitecpp"
+                "PYOPENMS":"ON",
+                "VCPKG_MANIFEST_FEATURES":"isospec;eol-bspline;simde;nlohmann-json;"
             }
         },
         {
