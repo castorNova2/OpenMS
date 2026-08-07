@@ -113,7 +113,7 @@
                 "ENABLE_OPENTIMS_TESTS": "OFF",
                 "WITH_WNETALIGN": "ON",
                 "USE_EXTERNAL_JSON": "ON",
-                "USE_EXTERNAL_SQLITECPP": "ON",
+                "USE_EXTERNAL_SQLITECPP": "OFF",
                 "USE_EXTERNAL_SIMDE": "ON",
                 "USE_EXTERNAL_ISOSPEC":"ON",
                 "USE_EXTERNAL_EOLBSPLINE":"ON",
