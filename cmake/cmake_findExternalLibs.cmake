@@ -510,28 +510,21 @@ if (WITH_OPENTIMS)
     # When the library was found via the manual search path (no CMake config
     # package), INTERFACE_COMPILE_DEFINITIONS may not be set; in that case we
     # conservatively inject sqlite3 because we cannot know how it was built.
-    #TODO: Testing
-    function(_openms_inject_opentims_sqlite)
-      if(TARGET SQLite::SQLite3)
-        # cmake_language(DEFER CALL target_link_libraries 
-        #   opentims::opentims_cpp INTERFACE SQLite::SQLite3)
-        target_link_libraries(opentims::opentims_cpp INTERFACE SQLite::SQLite3)
-        message(STATUS "opentims: sqlite injection(SQLite::SQLite3")
-      elseif(TARGET SQLiteCpp)
-        # cmake_language(DEFER CALL target_link_libraries 
-        #   opentims::opentims_cpp INTERFACE SQLiteCpp)
-        target_link_libraries(opentims::opentims_cpp INTERFACE SQLiteCpp)
-        message(STATUS "opentims: sqlite injection(SQLiteCpp)")
-      else()
-        message(FATAL_ERROR "opentims requires sqlite symbols but neither SQLite::SQLite3 nor SQLiteCpp target is available")
-      endif()
-    endfunction()
-    
     get_target_property(_opentims_defs opentims::opentims_cpp INTERFACE_COMPILE_DEFINITIONS)
     if(_opentims_defs MATCHES "OPENTIMS_LINK_SQLITE_STATICALLY"
        OR ((_opentims_defs MATCHES "NOTFOUND" OR _opentims_defs STREQUAL "") AND NOT opentims_FOUND))
+      function(_openms_inject_opentims_sqlite)
+        if(TARGET SQLite::SQLite3)
+          target_link_libraries(opentims::opentims_cpp INTERFACE SQLite::SQLite3)
+          message(STATUS "opentims: sqlite3 injection(SQLite::SQLite3")
+        elseif(TARGET SQLiteCpp)
+          target_link_libraries(opentims::opentims_cpp INTERFACE SQLiteCpp)
+          message(STATUS "opentims: sqlite3 injection(SQLiteCpp)")
+        else()
+          message(FATAL_ERROR "opentims requires sqlite3 symbols but neither SQLite::SQLite3 nor SQLiteCpp target is available to supply them")
+        endif()
+      endfunction()
       cmake_language(DEFER CALL _openms_inject_opentims_sqlite)
-      message(STATUS "opentims: injecting OpenMS sqlite3 (library was built with static sqlite)")
     endif()
   else()
     # No system install found — fetch and build from source.
