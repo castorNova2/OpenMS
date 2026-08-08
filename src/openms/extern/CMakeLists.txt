@@ -55,11 +55,11 @@ if(OPENMS_USE_VCPKG)
 endif()
 
 ##TODO: Write a comment
-set(_OPENMS_SQLITECPP_EXTRA_LIBS "")
+set(OPENMS_SQLITECPP_EXTRA_LIBS "")
 if(OPENMS_USE_VCPKG AND TARGET unofficial::sqlite3::sqlite3)
-    list(APPEND _OPENMS_SQLITECPP_EXTRA_LIBS unofficial::sqlite3::sqlite3)
+    list(APPEND OPENMS_SQLITECPP_EXTRA_LIBS unofficial::sqlite3::sqlite3)
 endif()
-set(_OPENMS_SQLITECPP_EXTRA_LIBS "${_OPENMS_SQLITECPP_EXTRA_LIBS}" CACHE INTERNAL "")
+set(OPENMS_SQLITECPP_EXTRA_LIBS "${OPENMS_SQLITECPP_EXTRA_LIBS}" CACHE INTERNAL "")
 
 if(USE_EXTERNAL_SQLITECPP)
     find_package(SQLiteCpp REQUIRED GLOBAL)      ## global propagates the target up to the parent project
