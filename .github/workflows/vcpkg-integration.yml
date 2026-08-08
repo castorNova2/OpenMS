@@ -375,5 +375,5 @@ jobs:
           path: |
             ${{ github.workspace }}/build/${{ matrix.configure_preset }}
             ${{ github.workspace }}/vcpkg/packages
-            ${{ github.workspace }}/vcpkg/buildtrees
+            ${{ github.workspace }}/vcpkg/buildtrees/**/*.log
 
