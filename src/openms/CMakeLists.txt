@@ -99,7 +99,7 @@ set(OPENMS_DEP_PRIVATE_LIBRARIES
   Quadtree
   SIMDe
   SQLiteCpp
-  $<$<AND:$<BOOL:${OPENMS_USE_VCPKG}>,$<TARGET_EXISTS:unofficial::sqlite3::sqlite3>>:unofficial::sqlite3::sqlite3>
+  ${OPEMS_SQLITECPP_EXTRA_LIBS}
   ZLIB::ZLIB
   libzip::zip
   nlohmann_json::nlohmann_json

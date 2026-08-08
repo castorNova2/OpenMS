@@ -48,19 +48,18 @@ else()
     set(JSON_USE_IMPLICIT_CONVERSIONS=0)
 endif()
 
-# option(USE_EXTERNAL_SQLITECPP "Use an external SQLiteCpp library" OFF)
-# message(STATUS "Option USE_EXTERNAL_SQLITECPP: ${USE_EXTERNAL_SQLITECPP}")
-# if(USE_EXTERNAL_SQLITECPP)
-#     find_package(SQLiteCpp REQUIRED GLOBAL)      ## global propagates the target up to the parent project
-#     message(STATUS "External 'SQLiteCpp' at: '${SQLiteCpp_DIR}'")
-# else()
-#     add_subdirectory(SQLiteCpp)
-# endif()
 option(USE_EXTERNAL_SQLITECPP "Use an external SQLiteCpp library" OFF)
 message(STATUS "Option USE_EXTERNAL_SQLITECPP: ${USE_EXTERNAL_SQLITECPP}")
 if(OPENMS_USE_VCPKG)
     find_package(unofficial-sqlite3 CONFIG QUIET GLOBAL)
 endif()
+
+##TODO: Write a comment
+set(_OPEMS_SQLITECPP_EXTRA_LIBS "")
+if(OPENMS_USE_VCPKG AND TARGET unofficial::sqlite3::sqlite3)
+    list(APPEND _OPEMS_SQLITECPP_EXTRA_LIBS unofficial::sqlite3::sqlite3)
+endif()
+set(_OPEMS_SQLITECPP_EXTRA_LIBS "${_OPEMS_SQLITECPP_EXTRA_LIBS}" CACHE INTERNAL "")
 
 if(USE_EXTERNAL_SQLITECPP)
     find_package(SQLiteCpp REQUIRED GLOBAL)      ## global propagates the target up to the parent project
