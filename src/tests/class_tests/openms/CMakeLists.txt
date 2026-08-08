@@ -212,8 +212,14 @@ if (TARGET OpenSwathPercolatorScoring_test)
   target_link_libraries(OpenSwathPercolatorScoring_test
     ${OPENMS_ARROW_TARGET}
     ${OPENMS_PARQUET_TARGET}
-    sqlite3
   )
+  if(TARGET SQLite::SQLite3)
+    target_link_libraries(OpenSwathPercolatorScoring_test SQLite::SQLite3)
+  elseif(TARGET SQLiteCpp)
+    target_link_libraries(OpenSwathPercolatorScoring_test SQLiteCpp)
+  elseif(TARGET sqlite3)
+    target_link_libraries(OpenSwathPercolatorScoring_test sqlite3)
+  endif()
 endif()
 if (TARGET ArrowSchemaRegistry_test)
   target_link_libraries(ArrowSchemaRegistry_test
@@ -242,12 +248,12 @@ endif()
 
 if (TARGET BrukerTimsFile_test AND WITH_OPENTIMS)
   target_link_libraries(BrukerTimsFile_test opentims::opentims_cpp)
-  if(TARGET sqlite3)
-    target_link_libraries(BrukerTimsFile_test sqlite3)
+  if(TARGET SQLite::SQLite3)
+    target_link_libraries(BrukerTimsFile_test SQLite::SQLite3)
   elseif(TARGET SQLiteCpp)
     target_link_libraries(BrukerTimsFile_test SQLiteCpp)
-  elseif(TARGET SQLite::SQLite3)
-    target_link_libraries(BrukerTimsFile_test SQLite::SQLite3)
+  elseif(TARGET sqlite3)
+    target_link_libraries(BrukerTimsFile_test sqlite3)
   endif()
 endif()
 
