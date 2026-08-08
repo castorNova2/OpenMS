@@ -99,7 +99,7 @@ set(OPENMS_DEP_PRIVATE_LIBRARIES
   Quadtree
   SIMDe
   SQLiteCpp
-  ${OPEMS_SQLITECPP_EXTRA_LIBS}
+  ${OPENMS_SQLITECPP_EXTRA_LIBS}
   ZLIB::ZLIB
   libzip::zip
   nlohmann_json::nlohmann_json
