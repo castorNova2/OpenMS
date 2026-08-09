@@ -312,15 +312,33 @@ jobs:
         run: |
           ccache -s || true
 
+      - name: Debug OpenSSL resolution
+        if: matrix.variant_name == 'linux-x64-gcc'
+        shell: bash
+        run: |
+          python3 -c "import ssl; print(ssl.OPENSSL_VERSION)"
+                  
+          find / -iname "_ssl*.so" -path "*python3.12*" 2>/dev/null
+                  
+          ssl_module="$(find / -iname "_ssl*.so" -path "*python3.12*" 2>/dev/null | head -1)"
+          echo "Using SSL module: $ssl_module"
+                  
+          set +e
+          readelf -d "$ssl_module"
+          readelf_exit=$?
+          set -e
+                  
+          echo "readelf exit code: $readelf_exit"
+                  
+          ldd /usr/lib/x86_64-linux-gnu/libssl.so.3 2>/dev/null
+          ls -la /usr/lib/x86_64-linux-gnu/libssl.so.3
+                  
       - name: Configure OpenMS
         shell: bash
         run: |
           cmake --preset ${{ matrix.configure_preset }} \
             -DCMAKE_C_COMPILER_LAUNCHER=ccache \
             -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
-      #            -DVCPKG_MANIFEST_FEATURES="hdf5;lp-glpk" \
-      #            -DWITH_HDF5=ON \
-      #            -DLP_SOLVER=GLPK \
 
       - name: Build OpenMS
         shell: bash
