@@ -311,27 +311,6 @@ jobs:
         shell: bash
         run: |
           ccache -s || true
-
-      - name: Debug OpenSSL resolution
-        if: matrix.variant_name == 'linux-x64-gcc'
-        shell: bash
-        run: |
-          python3 -c "import ssl; print(ssl.OPENSSL_VERSION)"
-                  
-          find / -iname "_ssl*.so" -path "*python3.12*" 2>/dev/null
-                  
-          ssl_module="$(find / -iname "_ssl*.so" -path "*python3.12*" 2>/dev/null | head -1)"
-          echo "Using SSL module: $ssl_module"
-                  
-          set +e
-          readelf -d "$ssl_module"
-          readelf_exit=$?
-          set -e
-                  
-          echo "readelf exit code: $readelf_exit"
-                  
-          ldd /usr/lib/x86_64-linux-gnu/libssl.so.3 2>/dev/null
-          ls -la /usr/lib/x86_64-linux-gnu/libssl.so.3
                   
       - name: Configure OpenMS
         shell: bash
@@ -375,8 +354,18 @@ jobs:
           echo "Some files"
           find "$HOME/.cache/vcpkg/archives" -name "*.zip" | head -20 || true
 
+      # - name: Debug pyOpenMS after openssl override
+      #   if: matrix.build_preset == 'linux-x64-ci' && always()
+      #   shell: bash
+      #   run: |
+      #     python3 -c "import ssl; print('System Python OpenSSL:', ssl.OPENSSL_VERSION)"
+      #     cd ${{ github.workspace }}/build/linux-x64-ci/pyOpenMS
+      #     python3 -c "import pyopenms; print('pyopenms imported successfully')"
+
       - name: Test
         shell: bash
+        env:
+          OPENMS_TEST_DATA_PATH: ${{ github.workspace }}/src/tests/topp
         run: |
           ctest --preset ${{ matrix.test_preset }}
 
