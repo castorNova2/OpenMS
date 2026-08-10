@@ -11,7 +11,7 @@ add_library(sqlite3 STATIC
  sqlite3.h
 )
 
-if(NOT TARGET SQLite3::SQLite3)
+if(NOT TARGET SQLite::SQLite3)
     add_library(SQLite::SQLite3 ALIAS sqlite3)
 endif()
 
