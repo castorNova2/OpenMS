@@ -114,7 +114,33 @@ if(WITH_ONNX)
 
   if(OPENMS_USE_VCPKG)
     list(APPEND OPENMS_DEP_PRIVATE_LIBRARIES onnxruntime::onnxruntime)
+
     get_target_property(ORT_LIB_PATH onnxruntime::onnxruntime IMPORTED_LOCATION)
+    if(NOT ORT_LIB_PATH)
+      message(STATUS "onnxruntime::onnxruntime has no IMPORTED_LOCATION, falling back to vcpkg installed lib path")
+      if(APPLE)
+        file(GLOB ORT_LIB_PATH "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/lib/libonnxruntime*.dylib")
+      elseif(UNIX)
+        file(GLOB ORT_LIB_PATH "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/lib/libonnxruntime.so*")
+      elseif(WIN32)
+        #Added for symmetry. Current openms build using vcpkg uses a static library linkage triplet so this branch never
+        #fires but if in future a dyanmic lib linkage windows triplet is used then this branch will be useful to locate
+        #onnxruntime.dll
+        file(GLOB ORT_LIB_PATH "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/onnxruntime.dll")
+      endif()
+      if(ORT_LIB_PATH)
+        list(GET ORT_LIB_PATH 0 ORT_LIB_PATH)
+      endif()
+    endif()
+    message(STATUS "ORT_LIB_PATH: ${ORT_LIB_PATH}")
+
+    get_target_property(ORT_INCLUDE_DIRS onnxruntime::onnxruntime INTERFACE_INCLUDE_DIRECTORIES)
+    message(STATUS "ORT_IMPORTED_CONFIGS: ${ORT_IMPORTED_CONFIGS}")
+    if(NOT ORT_INCLUDE_DIRS)
+      message(STATUS "onnxruntime::onnxruntime has no INTERFACE_INCLUDE_DIRECTORIES, falling back to vcpkg installed include path")
+      set(ORT_INCLUDE_DIRS "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include/onnxruntime")
+    endif()
+    message(STATUS "ORT_INCLUDE_DIRS: ${ORT_INCLUDE_DIRS}")
   else() 
     list(APPEND OPENMS_DEP_PRIVATE_LIBRARIES ONNXRuntime::ONNXRuntime)
     # Bypass IMPORTED_RUNTIME_ARTIFACTS by grabbing the file path directly.
@@ -122,6 +148,9 @@ if(WITH_ONNX)
     get_target_property(ORT_LIB_PATH ONNXRuntime::ONNXRuntime IMPORTED_LOCATION)
   endif()
   
+  if(ORT_INCLUDE_DIRS)
+    list(APPEND OPENMS_ONNX_PRIVATE_INCLUDES ${ORT_INCLUDE_DIRS})
+  endif()
 
   if(ORT_LIB_PATH)
       # Safely install ONNX shared libraries based on the operating system
@@ -265,7 +294,7 @@ openms_add_library(TARGET_NAME  OpenMS
                                  ${OpenMS_configured_headers}
                    INTERNAL_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/include
                                      ${CMAKE_CURRENT_BINARY_DIR}/include
-                   PRIVATE_INCLUDES
+                   PRIVATE_INCLUDES ${OPENMS_ONNX_PRIVATE_INCLUDES}
                    EXTERNAL_INCLUDES
                    LINK_LIBRARIES OpenSwathAlgo
                                   ${OPENMS_DEP_LIBRARIES}
