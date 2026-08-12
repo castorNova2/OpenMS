@@ -54,7 +54,7 @@ if(OPENMS_USE_VCPKG)
     find_package(unofficial-sqlite3 CONFIG QUIET GLOBAL)
 endif()
 
-##TODO: Write a comment
+#opentims always prefers vcpkg's sqlite3 when opentims itself is sourced from vcpkg.
 set(OPENMS_SQLITECPP_EXTRA_LIBS "")
 if(OPENMS_USE_VCPKG AND TARGET unofficial::sqlite3::sqlite3)
     list(APPEND OPENMS_SQLITECPP_EXTRA_LIBS unofficial::sqlite3::sqlite3)

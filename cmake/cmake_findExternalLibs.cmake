@@ -511,8 +511,13 @@ if (WITH_OPENTIMS)
     # package), INTERFACE_COMPILE_DEFINITIONS may not be set; in that case we
     # conservatively inject sqlite3 because we cannot know how it was built.
     get_target_property(_opentims_defs opentims::opentims_cpp INTERFACE_COMPILE_DEFINITIONS)
+    set(_opentims_needs_sqlite FALSE)
     if(_opentims_defs MATCHES "OPENTIMS_LINK_SQLITE_STATICALLY"
        OR ((_opentims_defs MATCHES "NOTFOUND" OR _opentims_defs STREQUAL "") AND NOT opentims_FOUND))
+      set(_opentims_needs_sqlite TRUE)
+    endif()
+
+    if(_opentims_needs_sqlite)
       function(_openms_inject_opentims_sqlite)
         if(OPENMS_USE_VCPKG AND TARGET unofficial::sqlite3::sqlite3)
           target_link_libraries(opentims::opentims_cpp INTERFACE unofficial::sqlite3::sqlite3)

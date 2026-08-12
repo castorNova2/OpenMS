@@ -115,6 +115,11 @@ if(WITH_ONNX)
   if(OPENMS_USE_VCPKG)
     list(APPEND OPENMS_DEP_PRIVATE_LIBRARIES onnxruntime::onnxruntime)
 
+    #vcpkg's onnxruntime::onnxruntime imported target does not set IMPORTED_LOCATION. Without the fallback,
+    #ORT_LIB_PATH silently resolves to NOTFOUND, the install(PROGRAMS ...) step below silently never fires, and cmake
+    #only able to find libonnxruntime for build OpenMS library by the proximity to the built tree. An installed build
+    #would likely fail at runtime with missing shared library error. Only relevant to dynamic triplets i.e., Linux and Mac.
+    #For windows onnxruntime is directly liked to onnxruntime.dll
     get_target_property(ORT_LIB_PATH onnxruntime::onnxruntime IMPORTED_LOCATION)
     if(NOT ORT_LIB_PATH)
       message(STATUS "onnxruntime::onnxruntime has no IMPORTED_LOCATION, falling back to vcpkg installed lib path")
@@ -132,10 +137,11 @@ if(WITH_ONNX)
         list(GET ORT_LIB_PATH 0 ORT_LIB_PATH)
       endif()
     endif()
-    message(STATUS "ORT_LIB_PATH: ${ORT_LIB_PATH}")
 
+    #On most triplets, INTERFACE_INCLUDE_DIRECTORIES is populated correctly by vcpkg and this fallback is never used. On
+    #Windows triplet(x64-windows-static-md-relsease) it comes back empty, which is error "onnxruntime_cxx_api.h: No such file or directory"
+    #on Windows CI.
     get_target_property(ORT_INCLUDE_DIRS onnxruntime::onnxruntime INTERFACE_INCLUDE_DIRECTORIES)
-    message(STATUS "ORT_IMPORTED_CONFIGS: ${ORT_IMPORTED_CONFIGS}")
     if(NOT ORT_INCLUDE_DIRS)
       message(STATUS "onnxruntime::onnxruntime has no INTERFACE_INCLUDE_DIRECTORIES, falling back to vcpkg installed include path")
       set(ORT_INCLUDE_DIRS "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include/onnxruntime")
