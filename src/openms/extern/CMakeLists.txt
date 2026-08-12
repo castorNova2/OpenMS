@@ -50,11 +50,13 @@ endif()
 
 option(USE_EXTERNAL_SQLITECPP "Use an external SQLiteCpp library" OFF)
 message(STATUS "Option USE_EXTERNAL_SQLITECPP: ${USE_EXTERNAL_SQLITECPP}")
+#Declaring vcpkg's sqlite3 up front so consumers can prefer it, instead of relying on race condition.
 if(OPENMS_USE_VCPKG)
     find_package(unofficial-sqlite3 CONFIG QUIET GLOBAL)
 endif()
 
-#opentims always prefers vcpkg's sqlite3 when opentims itself is sourced from vcpkg.
+#Needed when linking SQLiteCpp directly, its own sqlite3 dependency isn't always reliably propogated
+#weak linkage on macOS and Linux.
 set(OPENMS_SQLITECPP_EXTRA_LIBS "")
 if(OPENMS_USE_VCPKG AND TARGET unofficial::sqlite3::sqlite3)
     list(APPEND OPENMS_SQLITECPP_EXTRA_LIBS unofficial::sqlite3::sqlite3)

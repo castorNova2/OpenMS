@@ -517,7 +517,10 @@ if (WITH_OPENTIMS)
       set(_opentims_needs_sqlite TRUE)
     endif()
 
+
     if(_opentims_needs_sqlite)
+      #Deferred because unofficial::sqlite3::sqlite3 or SQLite::SQLite3 or SQLiteCpp doesn't exist yet,
+      #they are created inside add_subdirectory(src).
       function(_openms_inject_opentims_sqlite)
         if(OPENMS_USE_VCPKG AND TARGET unofficial::sqlite3::sqlite3)
           target_link_libraries(opentims::opentims_cpp INTERFACE unofficial::sqlite3::sqlite3)
