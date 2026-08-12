@@ -115,13 +115,13 @@
                 "WITH_OPENTIMS":"ON",
                 "WITH_THERMO_RAW":"ON",
                 "USE_EXTERNAL_JSON": "ON",
-                "USE_EXTERNAL_SQLITECPP": "ON",
+                "USE_EXTERNAL_SQLITECPP": "OFF",
                 "USE_EXTERNAL_SIMDE": "ON",
                 "USE_EXTERNAL_ISOSPEC":"ON",
                 "USE_EXTERNAL_EOLBSPLINE":"ON",
                 "WITH_HDF5": "OFF",
                 "PYOPENMS":"OFF",
-                "VCPKG_MANIFEST_FEATURES":"isospec;eol-bspline;simde;nlohmann-json;sqlitecpp;wnetalign;openms-thermo-bridge;opentims"
+                "VCPKG_MANIFEST_FEATURES":"isospec;eol-bspline;simde;nlohmann-json;wnetalign;openms-thermo-bridge;opentims"
             }
         },
         {
