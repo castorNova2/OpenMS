@@ -10,6 +10,7 @@ vcpkg_from_github(
 
 # Map vcpkg linkage onto upstream's BUILD_SHARED_LIBS switch. Static opentims
 # matches OpenMS's FetchContent behavior; shared opentims absorbs sqlite/zstd.
+message(STATUS "DEBUG opentims: VCPKG_LIBRARY_LINKAGE=${VCPKG_LIBRARY_LINKAGE} VCPKG_TARGET_TRIPLET=${VCPKG_TARGET_TRIPLET}")
 if(VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
     set(OPENTIMS_BUILD_SHARED ON)
     set(OPENTIMS_LINK_SQLITE_STATICALLY OFF)
@@ -17,6 +18,7 @@ else()
     set(OPENTIMS_BUILD_SHARED OFF)
     set(OPENTIMS_LINK_SQLITE_STATICALLY ON)
 endif()
+message(STATUS "DEBUG opentims: OPENTIMS_BUILD_SHARED=${OPENTIMS_BUILD_SHARED} OPENTIMS_LINK_SQLITE_STATICALLY=${OPENTIMS_LINK_SQLITE_STATICALLY}")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

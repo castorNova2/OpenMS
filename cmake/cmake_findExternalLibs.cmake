@@ -517,7 +517,6 @@ if (WITH_OPENTIMS)
       set(_opentims_needs_sqlite TRUE)
     endif()
 
-
     if(_opentims_needs_sqlite)
       #Deferred because unofficial::sqlite3::sqlite3 or SQLite::SQLite3 or SQLiteCpp doesn't exist yet,
       #they are created inside add_subdirectory(src).
