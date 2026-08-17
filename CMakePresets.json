@@ -119,9 +119,9 @@
                 "USE_EXTERNAL_SIMDE": "ON",
                 "USE_EXTERNAL_ISOSPEC":"ON",
                 "USE_EXTERNAL_EOLBSPLINE":"ON",
-                "WITH_HDF5": "ON",
+                "WITH_HDF5": "OFF",
                 "PYOPENMS":"OFF",
-                "VCPKG_MANIFEST_FEATURES":"isospec;eol-bspline;simde;sqlitecpp;nlohmann-json;wnetalign;openms-thermo-bridge;opentims;onnxruntime;hdf5"
+                "VCPKG_MANIFEST_FEATURES":"isospec;eol-bspline;simde;sqlitecpp;nlohmann-json;wnetalign;openms-thermo-bridge;opentims;onnxruntime"
             }
         },
         {
